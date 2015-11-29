@@ -89,14 +89,12 @@
 		4339711E1C0B26090080E600 /* PastelFamily */ = {
 			isa = PBXGroup;
 			children = (
+				433971471C0B42260080E600 /* Classes */,
 				4339711F1C0B26090080E600 /* AppDelegate.swift */,
 				433971211C0B26090080E600 /* ViewController.swift */,
-				433971231C0B26090080E600 /* Main.storyboard */,
 				433971261C0B26090080E600 /* Assets.xcassets */,
-				433971281C0B26090080E600 /* LaunchScreen.storyboard */,
 				4339712B1C0B26090080E600 /* Info.plist */,
 				433971411C0B2D400080E600 /* CustomTableViewCell.swift */,
-				433971421C0B2D400080E600 /* CustomTableViewCell.xib */,
 				433971461C0B32540080E600 /* PastelFamily-Bridging-Header.h */,
 			);
 			path = PastelFamily;
@@ -109,6 +107,24 @@
 				433971361C0B260A0080E600 /* Info.plist */,
 			);
 			path = PastelFamilyTests;
+			sourceTree = "<group>";
+		};
+		433971471C0B42260080E600 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				433971481C0B42450080E600 /* Views */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		433971481C0B42450080E600 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				433971231C0B26090080E600 /* Main.storyboard */,
+				433971281C0B26090080E600 /* LaunchScreen.storyboard */,
+				433971421C0B2D400080E600 /* CustomTableViewCell.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		6F7AEAFC0769C3AB81A293BE /* Pods */ = {
