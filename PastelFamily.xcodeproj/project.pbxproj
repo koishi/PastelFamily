@@ -13,6 +13,8 @@
 		433971271C0B26090080E600 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 433971261C0B26090080E600 /* Assets.xcassets */; };
 		4339712A1C0B26090080E600 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 433971281C0B26090080E600 /* LaunchScreen.storyboard */; };
 		433971351C0B260A0080E600 /* PastelFamilyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433971341C0B260A0080E600 /* PastelFamilyTests.swift */; };
+		433971431C0B2D400080E600 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433971411C0B2D400080E600 /* CustomTableViewCell.swift */; };
+		433971441C0B2D400080E600 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 433971421C0B2D400080E600 /* CustomTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		433971301C0B26090080E600 /* PastelFamilyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PastelFamilyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		433971341C0B260A0080E600 /* PastelFamilyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastelFamilyTests.swift; sourceTree = "<group>"; };
 		433971361C0B260A0080E600 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		433971411C0B2D400080E600 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		433971421C0B2D400080E600 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,8 @@
 				433971261C0B26090080E600 /* Assets.xcassets */,
 				433971281C0B26090080E600 /* LaunchScreen.storyboard */,
 				4339712B1C0B26090080E600 /* Info.plist */,
+				433971411C0B2D400080E600 /* CustomTableViewCell.swift */,
+				433971421C0B2D400080E600 /* CustomTableViewCell.xib */,
 			);
 			path = PastelFamily;
 			sourceTree = "<group>";
@@ -179,6 +185,7 @@
 			files = (
 				4339712A1C0B26090080E600 /* LaunchScreen.storyboard in Resources */,
 				433971271C0B26090080E600 /* Assets.xcassets in Resources */,
+				433971441C0B2D400080E600 /* CustomTableViewCell.xib in Resources */,
 				433971251C0B26090080E600 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				433971431C0B2D400080E600 /* CustomTableViewCell.swift in Sources */,
 				433971221C0B26090080E600 /* ViewController.swift in Sources */,
 				433971201C0B26090080E600 /* AppDelegate.swift in Sources */,
 			);
