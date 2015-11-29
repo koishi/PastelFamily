@@ -13,6 +13,8 @@ class ViewController: UIViewController, UITableViewDataSource
 
   @IBOutlet weak var tableView: UITableView!
 
+  var texts = ["hello", "world", "hello", "Swift"]
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -25,18 +27,20 @@ class ViewController: UIViewController, UITableViewDataSource
   override func didReceiveMemoryWarning()
   {
     super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
 
-// MARK: - UITableViewDataSource
+  // MARK: - UITableViewDataSource
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
+    let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
+    cell.textLabel?.text = texts[indexPath.row]
+    return cell
   }
 
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
-    return 1
+    return texts.count
   }
 
   func numberOfSectionsInTableView(tableView: UITableView) -> Int
