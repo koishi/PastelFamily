@@ -1,25 +1,94 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kko-E9-uhj">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Navigation Controller-->
+        <scene sceneID="Gdw-dW-WzN">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="kko-E9-uhj" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="X05-vb-vTY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Ga3-nA-zsf" kind="relationship" relationship="rootViewController" id="jam-7Q-aF6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p8A-E4-bWW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1042" y="139"/>
+        </scene>
+        <!--Episode View Controller-->
+        <scene sceneID="EE2-Il-w5c">
+            <objects>
+                <viewController id="Ga3-nA-zsf" customClass="EpisodeViewController" customModule="PastelFamily" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="xWb-SG-sww"/>
+                        <viewControllerLayoutGuide type="bottom" id="faM-Sa-WlG"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="ydc-JL-UXF">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tbz-9V-lWi">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tbz-9V-lWi" firstAttribute="top" secondItem="ydc-JL-UXF" secondAttribute="topMargin" id="D2I-9r-0HI"/>
+                            <constraint firstItem="tbz-9V-lWi" firstAttribute="leading" secondItem="ydc-JL-UXF" secondAttribute="leadingMargin" constant="-20" id="egO-W2-naE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tbz-9V-lWi" secondAttribute="trailing" constant="-20" id="rT5-al-DQG"/>
+                            <constraint firstItem="faM-Sa-WlG" firstAttribute="top" secondItem="tbz-9V-lWi" secondAttribute="bottom" id="tCS-55-b9i"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="rQG-uz-r3J"/>
+                    <connections>
+                        <outlet property="tableView" destination="tbz-9V-lWi" id="Cfk-sG-PI2"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uMn-bc-xAf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-330" y="150"/>
+        </scene>
+        <!--Comic View Controller-->
+        <scene sceneID="psh-Jz-khe">
+            <objects>
+                <viewController storyboardIdentifier="ComicViewController" id="YdW-yE-HfL" userLabel="Comic View Controller" customClass="ComicViewController" customModule="PastelFamily" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hYh-0C-dhg"/>
+                        <viewControllerLayoutGuide type="bottom" id="oHF-mF-O9y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7tB-ye-V6Q">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F6t-iL-Arf">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="F6t-iL-Arf" firstAttribute="top" secondItem="7tB-ye-V6Q" secondAttribute="topMargin" id="UZ3-to-tuP"/>
+                            <constraint firstItem="oHF-mF-O9y" firstAttribute="top" secondItem="F6t-iL-Arf" secondAttribute="bottom" id="h46-7k-0L4"/>
+                            <constraint firstItem="F6t-iL-Arf" firstAttribute="leading" secondItem="7tB-ye-V6Q" secondAttribute="leadingMargin" constant="-20" id="ufd-dr-gKd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="F6t-iL-Arf" secondAttribute="trailing" constant="-20" id="w4Y-lR-hWZ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="oOm-y2-9fL"/>
+                    <connections>
+                        <outlet property="webView" destination="F6t-iL-Arf" id="Emi-bq-urM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iDZ-Yf-spU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="346" y="150"/>
         </scene>
     </scenes>
 </document>
