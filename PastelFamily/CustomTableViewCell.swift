@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomTableViewCell: UITableViewCell
+class CustomTableViewCell: UITableViewCell, SDWebImageManagerDelegate
 {
 
   @IBOutlet weak var komaImage: UIImageView!
