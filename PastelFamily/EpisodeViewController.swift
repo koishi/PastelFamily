@@ -12,7 +12,7 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
 {
   @IBOutlet weak private var tableView: UITableView!
 
-  private let cellIdentifier = "Cell"
+  private let episodeCellIdentifier = "EpisodeTableViewCell"
 
   override func viewDidLoad()
   {
@@ -21,7 +21,8 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     tableView.delegate = self
     tableView.dataSource = self
-    tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+    let nib = UINib(nibName: episodeCellIdentifier, bundle: nil)
+    tableView.registerNib(nib, forCellReuseIdentifier: episodeCellIdentifier)
 
     EpisodeManager.sharedInstance.scrapingEpisodeList({
       self.tableView.reloadData()
@@ -32,9 +33,10 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
-    let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)!
+    let cell = tableView.dequeueReusableCellWithIdentifier(episodeCellIdentifier) as! EpisodeTableViewCell
     let episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
-    cell.textLabel?.text = episode.title
+    cell.episodeTitle.text = episode.title
+    cell.episodeImage.sd_setImageWithURL(NSURL(string: episode.imageUrl))
     return cell
   }
 

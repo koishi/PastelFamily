@@ -5,6 +5,7 @@ use_frameworks!
 
 target 'PastelFamily' do
   pod 'Ji', '~> 1.2.0'
+  pod 'SDWebImage'
 end
 
 target 'PastelFamilyTests' do

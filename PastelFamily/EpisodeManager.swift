@@ -31,30 +31,36 @@ class EpisodeManager: NSObject
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
 
       let jiDoc = Ji(htmlURL: NSURL(string: "http://www.comico.jp/detail.nhn?titleNo=32&articleNo=1")!)
-      let bodyNode = jiDoc?.xPath("//body")!.first!
-      let contentDivNode = bodyNode!.xPath("header[@class='m-article-header']/div[@class='m-article-header__nav-article']/div[@class='m-article-header__nav-article-list']/ul").first
 
-      for childNode in contentDivNode!.children {
-        let url = childNode.firstChildWithName("a")?.attributes["href"]
-        var title: String = ""
+      if let bodyNode = jiDoc?.xPath("//body")!.first {
+        let contentDivNode = bodyNode.xPath("header[@class='m-article-header']/div[@class='m-article-header__nav-article']/div[@class='m-article-header__nav-article-list']/ul").first
         
-        for childNode in (childNode.firstChildWithName("a")?.childrenWithName("p"))! {
+        for childNode in contentDivNode!.children {
+          let url = childNode.firstChildWithName("a")?.attributes["href"]
+          var title: String = ""
+          var imageUrl: String = ""
           
-          if let plainTitle = childNode.firstChildWithName("img")?.attributes["alt"] {
-            title = plainTitle.stringByReplacingOccurrencesOfString(EpisodeManager.titleName, withString: "")
+          for childNode in (childNode.firstChildWithName("a")?.childrenWithName("p"))! {
+            
+            if let plainTitle = childNode.firstChildWithName("img")?.attributes["alt"] {
+              title = plainTitle.stringByReplacingOccurrencesOfString(EpisodeManager.titleName, withString: "")
+            }
+            if let imgSrc = childNode.firstChildWithName("img")?.attributes["src"] {
+              imageUrl = imgSrc
+            }
+            break
           }
           
-          break
-        }
-        
-        var episode = EpisodeEntity(title: title, url: url!)
-        episode.komaUrl = self.scrapingEpisodeKoma(episode.url)
-        self.episodes.append(episode)
-
-        dispatch_async(dispatch_get_main_queue()) {
-          completion()
+          var episode = EpisodeEntity(title: title, url: url!, imageUrl: imageUrl)
+          episode.komaUrl = self.scrapingEpisodeKoma(episode.url)
+          self.episodes.append(episode)
+          
+          dispatch_async(dispatch_get_main_queue()) {
+            completion()
+          }
         }
       }
+
       dispatch_async(dispatch_get_main_queue()) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         completion()

@@ -7,17 +7,20 @@
 //
 
 import Foundation
+import SDWebImage
 
 struct EpisodeEntity
 {
   var title: String
   var url: String
+  var imageUrl: String
   var komaUrl = [String]()
 
-  init(title: String, url: String)
+  init(title: String, url: String, imageUrl: String)
   {
     self.title = title
     self.url = url
+    self.imageUrl = imageUrl
     self.komaUrl = []
   }
 }
