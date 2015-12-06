@@ -67,24 +67,9 @@
                     <view key="view" contentMode="scaleToFill" id="7tB-ye-V6Q">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F6t-iL-Arf">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
-                            </webView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="F6t-iL-Arf" firstAttribute="top" secondItem="7tB-ye-V6Q" secondAttribute="topMargin" id="UZ3-to-tuP"/>
-                            <constraint firstItem="oHF-mF-O9y" firstAttribute="top" secondItem="F6t-iL-Arf" secondAttribute="bottom" id="h46-7k-0L4"/>
-                            <constraint firstItem="F6t-iL-Arf" firstAttribute="leading" secondItem="7tB-ye-V6Q" secondAttribute="leadingMargin" constant="-20" id="ufd-dr-gKd"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="F6t-iL-Arf" secondAttribute="trailing" constant="-20" id="w4Y-lR-hWZ"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oOm-y2-9fL"/>
-                    <connections>
-                        <outlet property="webView" destination="F6t-iL-Arf" id="Emi-bq-urM"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iDZ-Yf-spU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

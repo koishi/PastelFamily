@@ -49,26 +49,21 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
   {
     if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("ComicViewController") as? ComicViewController {
       let episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
-      vc.url = htmlWithKoma(episode)
+      vc.htmlString = htmlString(episode)
       self.navigationController?.pushViewController(vc, animated: true)
     }
   }
 
   // MARK: - Private
 
-  private func htmlWithKoma(episode: EpisodeEntity) -> NSURL
+  private func htmlString(episode: EpisodeEntity) -> String
   {
     var html = "<html lang=\"ja\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width\"><title>\(episode.title)</title>"
     for komaUrl in episode.komaUrl {
       html += "<img src=\"\(komaUrl)\">"
     }
     html += "</body></html>"
-
-    let data = html.dataUsingEncoding(NSUTF8StringEncoding)
-    let documentsPath: NSString = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-    let filePath = documentsPath.stringByAppendingPathComponent("test.html")
-    data!.writeToFile(filePath, atomically: true)
-    return NSURL(fileURLWithPath: filePath)
+    return html
   }
   
 }

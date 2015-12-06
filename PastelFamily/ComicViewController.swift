@@ -7,25 +7,44 @@
 //
 
 import UIKit
+import WebKit
 
-class ComicViewController: UIViewController, UIWebViewDelegate
+class ComicViewController: UIViewController, WKNavigationDelegate
 {
-  @IBOutlet weak private var webView: UIWebView!
 
-  var url: NSURL?
+  private var webView: WKWebView!
+  var htmlString: String?
+
+  required init?(coder aDecoder: NSCoder)
+  {
+    super.init(nibName: nil, bundle: nil)
+    webView = WKWebView()
+  }
 
   override func viewDidLoad()
   {
-    webView.delegate = self
-    if let url = url {
-      let request = NSURLRequest(URL: url)
-      webView.loadRequest(request)
+    super.viewDidLoad()
+    setupSubViews()
+
+    if let htmlString = htmlString {
+      webView.loadHTMLString(htmlString, baseURL: nil)
     }
   }
 
-  func webViewDidFinishLoad(webView: UIWebView)
+  private func setupSubViews()
   {
-    let title = webView.stringByEvaluatingJavaScriptFromString("document.title")
-    self.navigationItem.title = title
+    webView.navigationDelegate = self
+    webView.translatesAutoresizingMaskIntoConstraints = false
+    self.view.addSubview(webView)
+    var viewBindingsDict = [String: AnyObject]()
+    viewBindingsDict["webView"] = webView
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[webView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewBindingsDict))
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewBindingsDict))
   }
+  
+  func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!)
+  {
+    navigationItem.title = webView.title
+  }
+
 }
