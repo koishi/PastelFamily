@@ -8,28 +8,38 @@
 
 import UIKit
 import Ji
+import RealmSwift
 
 class EpisodeManager: NSObject
 {
   
   static let titleName = "パステル家族"
 
-  private(set) var episodes = [EpisodeEntity]()
+  private(set) var episodes: Results<EpisodeEntity>
 
   class var sharedInstance: EpisodeManager
   {
     struct Static {
-      static let instance: EpisodeManager = EpisodeManager()
+      static let instance = EpisodeManager()
     }
     return Static.instance
+  }
+  
+  required override init()
+  {
+    let realm = try! Realm()
+    episodes = realm.objects(EpisodeEntity)
   }
 
   func scrapingEpisodeList(completion:() -> Void)
   {
+
     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
 
+      let realm = try! Realm()
+      
       let jiDoc = Ji(htmlURL: NSURL(string: "http://www.comico.jp/detail.nhn?titleNo=32&articleNo=1")!)
 
       if let bodyNode = jiDoc?.xPath("//body")!.first {
@@ -37,11 +47,16 @@ class EpisodeManager: NSObject
         
         for childNode in contentDivNode!.children {
           let url = childNode.firstChildWithName("a")?.attributes["href"]
-          var title: String = ""
-          var imageUrl: String = ""
-          
+          var title = ""
+          var imageUrl = ""
+
+          // すでに存在するURLならスキップする
+          let result = realm.objects(EpisodeEntity).filter("url = '\(url!)'")
+          if result.count != 0 {
+            continue
+          }
+
           for childNode in (childNode.firstChildWithName("a")?.childrenWithName("p"))! {
-            
             if let plainTitle = childNode.firstChildWithName("img")?.attributes["alt"] {
               title = plainTitle.stringByReplacingOccurrencesOfString(EpisodeManager.titleName, withString: "")
             }
@@ -50,17 +65,19 @@ class EpisodeManager: NSObject
             }
             break
           }
-          
-          var episode = EpisodeEntity(title: title, url: url!, imageUrl: imageUrl)
-          episode.komaUrl = self.scrapingEpisodeKoma(episode.url)
-          self.episodes.append(episode)
-          
+
+          let episode = EpisodeEntity(title: title, url: url!, imageUrl: imageUrl)
+          episode.komaUrl = self.scrapingKomaFromEpisode(episode.url!)
+
+          try! realm.write {
+            realm.add(episode)
+          }
+
           dispatch_async(dispatch_get_main_queue()) {
             completion()
           }
         }
       }
-
       dispatch_async(dispatch_get_main_queue()) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         completion()
@@ -68,15 +85,15 @@ class EpisodeManager: NSObject
     }
   }
 
-  private func scrapingEpisodeKoma(url: String) -> [String]
+  private func scrapingKomaFromEpisode(url: String) -> List<Koma>
   {
     let jiDoc = Ji(htmlURL: NSURL(string: url)!)
     let bodyNode = jiDoc?.xPath("//body")!.first!
     let contentDivNode = bodyNode!.xPath("div[@class='m-comico-body o-section-bg-01 o-pb50']/div[@class='m-comico-body__inner']/div[@class='m-section-detail o-mt-1']/section[@class='m-section-detail__body']").first
 
-    var komaURL = [String]()
+    let komaURL = List<Koma>()
     for childNode in contentDivNode!.children {
-      komaURL.append(childNode.attributes["src"]!)
+      komaURL.append(Koma.init(url: childNode.attributes["src"]!))
     }
     return komaURL
   }
@@ -84,5 +101,16 @@ class EpisodeManager: NSObject
   func count() -> Int
   {
     return episodes.count
+  }
+
+  func htmlString(index: Int) -> String
+  {
+    let episode = episodes[index]
+    var html = "<html lang=\"ja\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width\"><title>\(episode.title!)</title>"
+    for komaUrl in episode.komaUrl {
+      html += "<img src=\"\(komaUrl.url!)\">"
+    }
+    html += "</body></html>"
+    return html
   }
 }

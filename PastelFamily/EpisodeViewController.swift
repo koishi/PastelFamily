@@ -36,7 +36,7 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
     let cell = tableView.dequeueReusableCellWithIdentifier(episodeCellIdentifier) as! EpisodeTableViewCell
     let episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
     cell.episodeTitle.text = episode.title
-    cell.episodeImage.sd_setImageWithURL(NSURL(string: episode.imageUrl))
+    cell.episodeImage.sd_setImageWithURL(NSURL(string: episode.imageUrl!))
     return cell
   }
 
@@ -50,22 +50,9 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
     if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("ComicViewController") as? ComicViewController {
-      let episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
-      vc.htmlString = htmlString(episode)
+      vc.htmlString = EpisodeManager.sharedInstance.htmlString(indexPath.row)
       self.navigationController?.pushViewController(vc, animated: true)
     }
-  }
-
-  // MARK: - Private
-
-  private func htmlString(episode: EpisodeEntity) -> String
-  {
-    var html = "<html lang=\"ja\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width\"><title>\(episode.title)</title>"
-    for komaUrl in episode.komaUrl {
-      html += "<img src=\"\(komaUrl)\">"
-    }
-    html += "</body></html>"
-    return html
   }
   
 }
