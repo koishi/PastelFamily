@@ -26,6 +26,7 @@ class EpisodeManager: NSObject
 
   func scrapingEpisodeList(completion:() -> Void)
   {
+    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
 
@@ -54,8 +55,11 @@ class EpisodeManager: NSObject
           completion()
         }
       }
+      dispatch_async(dispatch_get_main_queue()) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        completion()
+      }
     }
-    completion()
   }
 
   private func scrapingEpisodeKoma(url: String) -> [String]
