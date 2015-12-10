@@ -51,6 +51,13 @@ class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewD
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewBindingsDict))
   }
 
+  // MARK: - WKNavigationDelegate
+
+  func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!)
+  {
+    navigationItem.title = webView.title
+  }
+  
   // MARK: - UIScrollViewDelegate
   
   func scrollViewDidScroll(scrollView: UIScrollView)
