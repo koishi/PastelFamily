@@ -16,8 +16,8 @@ class EpisodeEntity: Object
   dynamic var url: String?
   dynamic var imageUrl: String?
   var komaUrl = List<Koma>()
-  var isNew: Bool?
-  var isRead: Bool?
+  let isNewFlag = RealmOptional<Bool>(false)
+  let isReadFlag = RealmOptional<Bool>(false)
 
   convenience init(title: String, url: String, imageUrl: String)
   {
@@ -26,8 +26,16 @@ class EpisodeEntity: Object
     self.url = url
     self.imageUrl = imageUrl
     self.komaUrl = List<Koma>()
-    self.isNew = false
-    self.isRead = false
+    self.isNewFlag.value = false
+    self.isReadFlag.value = false
+  }
+
+  func isRead()
+  {
+    let realm = try! Realm()
+    try! realm.write {
+      self.isReadFlag.value = true
+    }
   }
 }
 

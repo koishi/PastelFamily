@@ -29,6 +29,11 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
     })
   }
 
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    tableView.reloadData()
+  }
+
   // MARK: - UITableViewDataSource
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -36,6 +41,15 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
     let cell = tableView.dequeueReusableCellWithIdentifier(episodeCellIdentifier) as! EpisodeTableViewCell
     let episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
     cell.episodeTitle.text = episode.title
+
+    if let isReadFlag = episode.isReadFlag.value {
+      if isReadFlag {
+        cell.episodeTitle.textColor = UIColor.grayColor()
+      } else {
+        cell.episodeTitle.textColor = UIColor.blackColor()
+      }
+    }
+
     cell.episodeImage.sd_setImageWithURL(NSURL(string: episode.imageUrl!))
     return cell
   }
@@ -49,10 +63,10 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
-    if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("ComicViewController") as? ComicViewController {
-      vc.htmlString = EpisodeManager.sharedInstance.htmlString(indexPath.row)
-      self.navigationController?.pushViewController(vc, animated: true)
-    }
+    let vc = self.storyboard?.instantiateViewControllerWithIdentifier("ComicViewController") as! ComicViewController
+    vc.htmlString = EpisodeManager.sharedInstance.htmlString(indexPath.row)
+    vc.episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
+    self.navigationController?.pushViewController(vc, animated: true)
   }
   
 }
