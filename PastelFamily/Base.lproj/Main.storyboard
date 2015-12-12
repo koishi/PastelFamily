@@ -67,9 +67,41 @@
                     <view key="view" contentMode="scaleToFill" id="7tB-ye-V6Q">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7W2-rY-dhb">
+                                <rect key="frame" x="0.0" y="546" width="600" height="54"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ini-Cj-qer">
+                                        <rect key="frame" x="240" y="12" width="121" height="30"/>
+                                        <state key="normal" title="次の話を読む"/>
+                                        <connections>
+                                            <action selector="tappedNextEpisodeButton:" destination="YdW-yE-HfL" eventType="touchUpInside" id="pla-0z-n7S"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="ThX-hf-cWR"/>
+                                    <constraint firstAttribute="height" constant="54" id="zY4-MY-6Ku"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7W2-rY-dhb" firstAttribute="centerX" secondItem="7tB-ye-V6Q" secondAttribute="centerX" id="gAw-Nz-py6"/>
+                            <constraint firstItem="7W2-rY-dhb" firstAttribute="centerY" secondItem="7tB-ye-V6Q" secondAttribute="centerY" constant="260.5" id="ibl-TA-cUg"/>
+                            <constraint firstItem="oHF-mF-O9y" firstAttribute="top" secondItem="7W2-rY-dhb" secondAttribute="bottom" id="uGk-EM-pX8"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ibl-TA-cUg"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="oOm-y2-9fL"/>
+                    <connections>
+                        <outlet property="subView" destination="7W2-rY-dhb" id="d5a-mQ-nsk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iDZ-Yf-spU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

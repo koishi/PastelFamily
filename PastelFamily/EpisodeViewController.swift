@@ -8,14 +8,12 @@
 
 import UIKit
 
-class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
-{
+class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   @IBOutlet weak private var tableView: UITableView!
 
   private let episodeCellIdentifier = "EpisodeTableViewCell"
 
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationItem.title = EpisodeManager.titleName
 
@@ -35,9 +33,8 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
   }
 
   // MARK: - UITableViewDataSource
-  
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-  {
+
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(episodeCellIdentifier) as! EpisodeTableViewCell
     let episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
     cell.episodeTitle.text = episode.title
@@ -54,19 +51,18 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
     return cell
   }
 
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-  {
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return EpisodeManager.sharedInstance.count()
   }
 
   // MARK: - UITableDelegate
-  
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-  {
+
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let vc = self.storyboard?.instantiateViewControllerWithIdentifier("ComicViewController") as! ComicViewController
     vc.htmlString = EpisodeManager.sharedInstance.htmlString(indexPath.row)
     vc.episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
+    vc.episodeIndex = indexPath.row
     self.navigationController?.pushViewController(vc, animated: true)
   }
-  
+
 }

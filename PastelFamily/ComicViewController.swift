@@ -15,18 +15,16 @@ class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewD
   private var webView: WKWebView!
   var htmlString: String?
   var episode: EpisodeEntity?
+  var episodeIndex: Int?
+
+  @IBOutlet weak var subView: UIView!
 
   // MARK: - LifeCycle
 
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(nibName: nil, bundle: nil)
-    webView = WKWebView()
-  }
-
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
     super.viewDidLoad()
+
+    webView = WKWebView()
     setupSubViews()
 
     if let htmlString = htmlString {
@@ -34,42 +32,61 @@ class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewD
     }
   }
   
-  override func viewWillDisappear(animated: Bool)
-  {
+  override func viewWillDisappear(animated: Bool) {
     webView.scrollView.delegate = nil;
   }
 
-  private func setupSubViews()
-  {
+  private func setupSubViews() {
     webView.navigationDelegate = self
     webView.scrollView.delegate = self
     webView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(webView)
+    view.sendSubviewToBack(webView)
     var viewBindingsDict = [String: AnyObject]()
     viewBindingsDict["webView"] = webView
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[webView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewBindingsDict))
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewBindingsDict))
+
+    subView.hidden = true
   }
 
   // MARK: - WKNavigationDelegate
 
-  func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!)
-  {
+  func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
     navigationItem.title = webView.title
   }
-  
+
   // MARK: - UIScrollViewDelegate
-  
-  func scrollViewDidScroll(scrollView: UIScrollView)
-  {
+
+  func scrollViewDidScroll(scrollView: UIScrollView) {
     if webView.scrollView.bounds.size.height == 0 || webView.scrollView.contentSize.height == 0 {
+      subView.hidden = true
       return
     }
 
     let calc = (webView.scrollView.contentOffset.y + webView.scrollView.bounds.size.height) / webView.scrollView.contentSize.height
     if calc >= 1.0 {
       episode?.isRead()
+
+      if EpisodeManager.sharedInstance.availableEpisode(episodeIndex! + 1) {
+        subView.hidden = false
+      }
+
+      return
+    }
+
+    subView.hidden = true
+    return
+  }
+
+  // MARK: IBAction
+  
+  @IBAction func tappedNextEpisodeButton(sender: AnyObject) {
+    if let html = EpisodeManager.sharedInstance.nextEpisodeHtml(episodeIndex!) {
+      episodeIndex! += 1
+      htmlString = html
+      webView.loadHTMLString(htmlString!, baseURL: nil)
     }
   }
-  
+
 }

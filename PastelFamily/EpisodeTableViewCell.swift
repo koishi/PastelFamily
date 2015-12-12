@@ -8,19 +8,16 @@
 
 import UIKit
 
-class EpisodeTableViewCell: UITableViewCell
-{
+class EpisodeTableViewCell: UITableViewCell {
 
   @IBOutlet weak var episodeImage: UIImageView!
   @IBOutlet weak var episodeTitle: UILabel!
 
-  override func awakeFromNib()
-  {
+  override func awakeFromNib() {
     super.awakeFromNib()
   }
 
-  override func setSelected(selected: Bool, animated: Bool)
-  {
+  override func setSelected(selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
   }
   

@@ -6,33 +6,28 @@
 //  Copyright © 2015年 bs. All rights reserved.
 //
 
-import UIKit
 import Ji
 import RealmSwift
 
-class EpisodeManager: NSObject
-{
+class EpisodeManager: NSObject {
   
   static let titleName = "パステル家族"
 
   private(set) var episodes: Results<EpisodeEntity>
 
-  class var sharedInstance: EpisodeManager
-  {
+  class var sharedInstance: EpisodeManager {
     struct Static {
       static let instance = EpisodeManager()
     }
     return Static.instance
   }
   
-  required override init()
-  {
+  required override init() {
     let realm = try! Realm()
     episodes = realm.objects(EpisodeEntity)
   }
 
-  func scrapingEpisodeList(completion:() -> Void)
-  {
+  func scrapingEpisodeList(completion:() -> Void) {
 
     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 
@@ -85,8 +80,7 @@ class EpisodeManager: NSObject
     }
   }
 
-  private func scrapingKomaFromEpisode(url: String) -> List<Koma>
-  {
+  private func scrapingKomaFromEpisode(url: String) -> List<Koma> {
     let jiDoc = Ji(htmlURL: NSURL(string: url)!)
     let bodyNode = jiDoc?.xPath("//body")!.first!
     let contentDivNode = bodyNode!.xPath("div[@class='m-comico-body o-section-bg-01 o-pb50']/div[@class='m-comico-body__inner']/div[@class='m-section-detail o-mt-1']/section[@class='m-section-detail__body']").first
@@ -98,13 +92,11 @@ class EpisodeManager: NSObject
     return komaURL
   }
   
-  func count() -> Int
-  {
+  func count() -> Int {
     return episodes.count
   }
 
-  func htmlString(index: Int) -> String
-  {
+  func htmlString(index: Int) -> String {
     let episode = episodes[index]
     var html = "<html lang=\"ja\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width\"><title>\(episode.title!)</title>"
     for komaUrl in episode.komaUrl {
@@ -113,4 +105,16 @@ class EpisodeManager: NSObject
     html += "</body></html>"
     return html
   }
+
+  func nextEpisodeHtml(index: Int) -> String? {
+    if availableEpisode(index + 1) {
+      return htmlString(index + 1)
+    }
+    return nil
+  }
+
+  func availableEpisode(index: Int) -> Bool {
+    return count() >= index + 1
+  }
+  
 }

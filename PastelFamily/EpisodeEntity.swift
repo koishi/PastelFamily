@@ -10,8 +10,7 @@ import Foundation
 import SDWebImage
 import RealmSwift
 
-class EpisodeEntity: Object
-{
+class EpisodeEntity: Object {
   dynamic var title: String?
   dynamic var url: String?
   dynamic var imageUrl: String?
@@ -19,8 +18,7 @@ class EpisodeEntity: Object
   let isNewFlag = RealmOptional<Bool>(false)
   let isReadFlag = RealmOptional<Bool>(false)
 
-  convenience init(title: String, url: String, imageUrl: String)
-  {
+  convenience init(title: String, url: String, imageUrl: String) {
     self.init()
     self.title = title
     self.url = url
@@ -30,8 +28,7 @@ class EpisodeEntity: Object
     self.isReadFlag.value = false
   }
 
-  func isRead()
-  {
+  func isRead() {
     let realm = try! Realm()
     try! realm.write {
       self.isReadFlag.value = true
@@ -39,8 +36,7 @@ class EpisodeEntity: Object
   }
 }
 
-class Koma: Object
-{
+class Koma: Object {
   dynamic var url: String?
 
   convenience init(url: String)
