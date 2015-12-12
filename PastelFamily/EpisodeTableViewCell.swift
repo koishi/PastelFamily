@@ -12,6 +12,7 @@ class EpisodeTableViewCell: UITableViewCell {
 
   @IBOutlet weak var episodeImage: UIImageView!
   @IBOutlet weak var episodeTitle: UILabel!
+  @IBOutlet weak var favoriteLabel: UILabel!
 
   override func awakeFromNib() {
     super.awakeFromNib()

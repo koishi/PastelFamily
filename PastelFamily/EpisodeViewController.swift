@@ -47,6 +47,10 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
       }
     }
 
+    if let isFavoriteFlag = episode.isFavoriteFlag.value {
+      cell.favoriteLabel.hidden = !isFavoriteFlag
+    }
+
     cell.episodeImage.sd_setImageWithURL(NSURL(string: episode.imageUrl!))
     return cell
   }

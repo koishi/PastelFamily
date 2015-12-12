@@ -71,19 +71,52 @@
                             <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7W2-rY-dhb">
                                 <rect key="frame" x="0.0" y="546" width="600" height="54"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ini-Cj-qer">
-                                        <rect key="frame" x="240" y="12" width="121" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ini-Cj-qer">
+                                        <rect key="frame" x="8" y="12" width="121" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="121" id="IvO-Xm-Ofe"/>
+                                            <constraint firstAttribute="height" constant="30" id="Psy-m4-KhA"/>
+                                        </constraints>
                                         <state key="normal" title="次の話を読む"/>
                                         <connections>
                                             <action selector="tappedNextEpisodeButton:" destination="YdW-yE-HfL" eventType="touchUpInside" id="pla-0z-n7S"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pw2-np-bx5">
+                                        <rect key="frame" x="137" y="12" width="121" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="121" id="VQc-Un-hwl"/>
+                                            <constraint firstAttribute="height" constant="30" id="Xjn-nx-GrA"/>
+                                            <constraint firstAttribute="width" constant="121" id="rJl-pN-swo"/>
+                                        </constraints>
+                                        <state key="normal" title="お気に入り"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Xjn-nx-GrA"/>
+                                                <exclude reference="rJl-pN-swo"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="tappedFavoriteButton:" destination="YdW-yE-HfL" eventType="touchUpInside" id="NbV-kn-x6P"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="Pw2-np-bx5" firstAttribute="leading" secondItem="ini-Cj-qer" secondAttribute="trailing" constant="8" symbolic="YES" id="7ZW-rW-qA1"/>
+                                    <constraint firstItem="ini-Cj-qer" firstAttribute="leading" secondItem="7W2-rY-dhb" secondAttribute="leading" constant="8" id="Q7P-RG-Qfh"/>
                                     <constraint firstAttribute="width" constant="600" id="ThX-hf-cWR"/>
+                                    <constraint firstItem="Pw2-np-bx5" firstAttribute="baseline" secondItem="ini-Cj-qer" secondAttribute="baseline" id="Y62-hg-cAI"/>
+                                    <constraint firstAttribute="bottom" secondItem="ini-Cj-qer" secondAttribute="bottom" constant="12" id="bcP-XP-0he"/>
+                                    <constraint firstAttribute="bottom" secondItem="Pw2-np-bx5" secondAttribute="bottom" constant="12" id="ffG-Of-Xhr"/>
                                     <constraint firstAttribute="height" constant="54" id="zY4-MY-6Ku"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="ThX-hf-cWR"/>
+                                        <exclude reference="Y62-hg-cAI"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -91,6 +124,7 @@
                             <constraint firstItem="7W2-rY-dhb" firstAttribute="centerX" secondItem="7tB-ye-V6Q" secondAttribute="centerX" id="gAw-Nz-py6"/>
                             <constraint firstItem="7W2-rY-dhb" firstAttribute="centerY" secondItem="7tB-ye-V6Q" secondAttribute="centerY" constant="260.5" id="ibl-TA-cUg"/>
                             <constraint firstItem="oHF-mF-O9y" firstAttribute="top" secondItem="7W2-rY-dhb" secondAttribute="bottom" id="uGk-EM-pX8"/>
+                            <constraint firstItem="7W2-rY-dhb" firstAttribute="leading" secondItem="7tB-ye-V6Q" secondAttribute="leadingMargin" constant="-20" id="zVY-Og-Xhr"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -100,6 +134,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="oOm-y2-9fL"/>
                     <connections>
+                        <outlet property="favoriteButton" destination="Pw2-np-bx5" id="ka3-pn-2oH"/>
                         <outlet property="subView" destination="7W2-rY-dhb" id="d5a-mQ-nsk"/>
                     </connections>
                 </viewController>

@@ -18,6 +18,7 @@ class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewD
   var episodeIndex: Int?
 
   @IBOutlet weak var subView: UIView!
+  @IBOutlet weak var favoriteButton: UIButton!
 
   // MARK: - LifeCycle
 
@@ -87,6 +88,10 @@ class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewD
       htmlString = html
       webView.loadHTMLString(htmlString!, baseURL: nil)
     }
+  }
+
+  @IBAction func tappedFavoriteButton(sender: AnyObject) {
+    episode?.isFavorite()
   }
 
 }

@@ -23,7 +23,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nH8-W0-AWh">
-                        <rect key="frame" x="56" y="11" width="256" height="21"/>
+                        <rect key="frame" x="56" y="11" width="231" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="obl-lZ-HSw"/>
                         </constraints>
@@ -31,18 +31,31 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="★" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mg-vO-84M">
+                        <rect key="frame" x="295" y="11" width="25" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="FeD-tc-MdZ"/>
+                            <constraint firstAttribute="width" constant="25" id="aQj-Y6-c80"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.28688442809956727" green="0.57995793358376013" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="nH8-W0-AWh" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="XYw-Nz-xE9"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="6Mg-vO-84M" secondAttribute="trailing" constant="-8" id="VvB-0d-HBh"/>
+                    <constraint firstItem="nH8-W0-AWh" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-25" id="XYw-Nz-xE9"/>
                     <constraint firstItem="nH8-W0-AWh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="dXA-2a-XnE"/>
                     <constraint firstItem="U0L-zh-VDn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="eds-fH-YU4"/>
                     <constraint firstItem="nH8-W0-AWh" firstAttribute="leading" secondItem="U0L-zh-VDn" secondAttribute="trailing" constant="13" id="iOx-gH-XC6"/>
                     <constraint firstItem="U0L-zh-VDn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="jtu-UI-yC6"/>
+                    <constraint firstItem="6Mg-vO-84M" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="ud2-FU-yW6"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="episodeImage" destination="U0L-zh-VDn" id="9Vu-cC-eMw"/>
                 <outlet property="episodeTitle" destination="nH8-W0-AWh" id="woF-vm-89Y"/>
+                <outlet property="favoriteLabel" destination="6Mg-vO-84M" id="XID-TP-nwZ"/>
             </connections>
         </tableViewCell>
     </objects>

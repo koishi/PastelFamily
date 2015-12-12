@@ -17,6 +17,7 @@ class EpisodeEntity: Object {
   var komaUrl = List<Koma>()
   let isNewFlag = RealmOptional<Bool>(false)
   let isReadFlag = RealmOptional<Bool>(false)
+  let isFavoriteFlag = RealmOptional<Bool>(false)
 
   convenience init(title: String, url: String, imageUrl: String) {
     self.init()
@@ -26,6 +27,7 @@ class EpisodeEntity: Object {
     self.komaUrl = List<Koma>()
     self.isNewFlag.value = false
     self.isReadFlag.value = false
+    self.isFavoriteFlag.value = false
   }
 
   func isRead() {
@@ -34,6 +36,18 @@ class EpisodeEntity: Object {
       self.isReadFlag.value = true
     }
   }
+
+  func isFavorite() {
+    let realm = try! Realm()
+    try! realm.write {
+      if self.isFavoriteFlag.value == true {
+        self.isFavoriteFlag.value = false
+        return
+      }
+      self.isFavoriteFlag.value = true
+    }
+  }
+
 }
 
 class Koma: Object {
