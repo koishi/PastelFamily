@@ -84,8 +84,9 @@ class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewD
   
   @IBAction func tappedNextEpisodeButton(sender: AnyObject) {
     if let html = EpisodeManager.sharedInstance.nextEpisodeHtml(episodeIndex!) {
-      episodeIndex! += 1
       htmlString = html
+      episodeIndex! += 1
+      episode = EpisodeManager.sharedInstance.episodes[episodeIndex!]
       webView.loadHTMLString(htmlString!, baseURL: nil)
     }
   }
