@@ -9,8 +9,7 @@
 import UIKit
 import WebKit
 
-class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelegate
-{
+class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelegate {
 
   private var webView: WKWebView!
   var htmlString: String?
@@ -18,6 +17,7 @@ class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewD
   var episodeIndex: Int?
 
   @IBOutlet weak var subView: UIView!
+  @IBOutlet weak var nextEpisodeButton: UIButton!
   @IBOutlet weak var favoriteButton: UIButton!
 
   // MARK: - LifeCycle
@@ -68,9 +68,12 @@ class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewD
     let calc = (webView.scrollView.contentOffset.y + webView.scrollView.bounds.size.height) / webView.scrollView.contentSize.height
     if calc >= 1.0 {
       episode?.isRead()
+      subView.hidden = false
 
       if EpisodeManager.sharedInstance.availableEpisode(episodeIndex! + 1) {
-        subView.hidden = false
+        nextEpisodeButton.hidden = false
+      } else {
+        nextEpisodeButton.hidden = true
       }
 
       return
