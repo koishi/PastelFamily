@@ -16,6 +16,8 @@ class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewD
   var episode: EpisodeEntity?
   var episodeIndex: Int?
 
+  static let identifier = "ComicViewController"
+
   @IBOutlet weak var subView: UIView!
   @IBOutlet weak var nextEpisodeButton: UIButton!
   @IBOutlet weak var favoriteButton: UIButton!

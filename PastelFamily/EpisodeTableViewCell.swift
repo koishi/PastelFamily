@@ -10,9 +10,37 @@ import UIKit
 
 class EpisodeTableViewCell: UITableViewCell {
 
-  @IBOutlet weak var episodeImage: UIImageView!
-  @IBOutlet weak var episodeTitle: UILabel!
-  @IBOutlet weak var favoriteLabel: UILabel!
+  @IBOutlet weak private var episodeImage: UIImageView!
+  @IBOutlet weak private var episodeTitle: UILabel!
+  @IBOutlet weak private var favoriteLabel: UILabel!
+
+  var episode: EpisodeEntity? {
+
+    didSet {
+
+      guard let episode = episode else {
+        return
+      }
+
+      episodeTitle.text = episode.title
+      
+      if let isReadFlag = episode.isReadFlag.value {
+        if isReadFlag {
+          episodeTitle.textColor = UIColor.grayColor()
+        } else {
+          episodeTitle.textColor = UIColor.blackColor()
+        }
+      }
+
+      if let isFavoriteFlag = episode.isFavoriteFlag.value {
+        favoriteLabel.hidden = !isFavoriteFlag
+      }
+      episodeImage.sd_setImageWithURL(NSURL(string: episode.imageUrl!))
+
+    }
+  }
+
+  static let cellIdentifier = "EpisodeTableViewCell"
 
   override func awakeFromNib() {
     super.awakeFromNib()

@@ -33,18 +33,18 @@ class EpisodeEntity: Object {
   func isRead() {
     let realm = try! Realm()
     try! realm.write {
-      self.isReadFlag.value = true
+      isReadFlag.value = true
     }
   }
 
   func isFavorite() {
     let realm = try! Realm()
     try! realm.write {
-      if self.isFavoriteFlag.value == true {
-        self.isFavoriteFlag.value = false
+      if isFavoriteFlag.value == true {
+        isFavoriteFlag.value = false
         return
       }
-      self.isFavoriteFlag.value = true
+      isFavoriteFlag.value = true
     }
   }
 

@@ -8,10 +8,8 @@
 
 import UIKit
 
-class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EpisodeViewController: UIViewController {
   @IBOutlet weak private var tableView: UITableView!
-
-  private let episodeCellIdentifier = "EpisodeTableViewCell"
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -19,8 +17,8 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     tableView.delegate = self
     tableView.dataSource = self
-    let nib = UINib(nibName: episodeCellIdentifier, bundle: nil)
-    tableView.registerNib(nib, forCellReuseIdentifier: episodeCellIdentifier)
+    let nib = UINib(nibName: EpisodeTableViewCell.cellIdentifier, bundle: nil)
+    tableView.registerNib(nib, forCellReuseIdentifier: EpisodeTableViewCell.cellIdentifier)
 
     EpisodeManager.sharedInstance.scrapingEpisodeList({
       self.tableView.reloadData()
@@ -32,41 +30,35 @@ class EpisodeViewController: UIViewController, UITableViewDelegate, UITableViewD
     tableView.reloadData()
   }
 
-  // MARK: - UITableViewDataSource
+}
 
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(episodeCellIdentifier) as! EpisodeTableViewCell
-    let episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
-    cell.episodeTitle.text = episode.title
+// MARK: - UITableDelegate
 
-    if let isReadFlag = episode.isReadFlag.value {
-      if isReadFlag {
-        cell.episodeTitle.textColor = UIColor.grayColor()
-      } else {
-        cell.episodeTitle.textColor = UIColor.blackColor()
-      }
-    }
-
-    if let isFavoriteFlag = episode.isFavoriteFlag.value {
-      cell.favoriteLabel.hidden = !isFavoriteFlag
-    }
-
-    cell.episodeImage.sd_setImageWithURL(NSURL(string: episode.imageUrl!))
-    return cell
-  }
-
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return EpisodeManager.sharedInstance.count()
-  }
-
-  // MARK: - UITableDelegate
+extension EpisodeViewController: UITableViewDelegate {
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let vc = self.storyboard?.instantiateViewControllerWithIdentifier("ComicViewController") as! ComicViewController
+    let vc = self.storyboard?.instantiateViewControllerWithIdentifier(ComicViewController.identifier) as! ComicViewController
     vc.htmlString = EpisodeManager.sharedInstance.htmlString(indexPath.row)
     vc.episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
     vc.episodeIndex = indexPath.row
     self.navigationController?.pushViewController(vc, animated: true)
+  }
+
+}
+
+// MARK: - UITableViewDataSource
+
+extension EpisodeViewController: UITableViewDataSource {
+
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier(EpisodeTableViewCell.cellIdentifier) as! EpisodeTableViewCell
+    let episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
+    cell.episode = episode
+    return cell
+  }
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return EpisodeManager.sharedInstance.count()
   }
 
 }
