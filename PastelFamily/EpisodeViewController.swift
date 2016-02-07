@@ -17,8 +17,7 @@ class EpisodeViewController: UIViewController {
 
     tableView.delegate = self
     tableView.dataSource = self
-    let nib = UINib(nibName: EpisodeTableViewCell.cellIdentifier, bundle: nil)
-    tableView.registerNib(nib, forCellReuseIdentifier: EpisodeTableViewCell.cellIdentifier)
+    tableView.registerNib(UINib(nibName: EpisodeTableViewCell.cellIdentifier, bundle: nil), forCellReuseIdentifier: EpisodeTableViewCell.cellIdentifier)
 
     EpisodeManager.sharedInstance.scrapingEpisodeList({
       self.tableView.reloadData()

@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelegate {
+final class ComicViewController: UIViewController {
 
   private var webView: WKWebView!
   var htmlString: String?
@@ -53,38 +53,6 @@ class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewD
     subView.hidden = true
   }
 
-  // MARK: - WKNavigationDelegate
-
-  func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-    navigationItem.title = webView.title
-  }
-
-  // MARK: - UIScrollViewDelegate
-
-  func scrollViewDidScroll(scrollView: UIScrollView) {
-    if webView.scrollView.bounds.size.height == 0 || webView.scrollView.contentSize.height == 0 {
-      subView.hidden = true
-      return
-    }
-
-    let calc = (webView.scrollView.contentOffset.y + webView.scrollView.bounds.size.height) / webView.scrollView.contentSize.height
-    if calc >= 1.0 {
-      episode?.isRead()
-      subView.hidden = false
-
-      if EpisodeManager.sharedInstance.availableEpisode(episodeIndex! + 1) {
-        nextEpisodeButton.hidden = false
-      } else {
-        nextEpisodeButton.hidden = true
-      }
-
-      return
-    }
-
-    subView.hidden = true
-    return
-  }
-
   // MARK: IBAction
   
   @IBAction func tappedNextEpisodeButton(sender: AnyObject) {
@@ -98,6 +66,46 @@ class ComicViewController: UIViewController, WKNavigationDelegate, UIScrollViewD
 
   @IBAction func tappedFavoriteButton(sender: AnyObject) {
     episode?.isFavorite()
+  }
+
+}
+
+// MARK: - WKNavigationDelegate
+
+extension ComicViewController: WKNavigationDelegate {
+
+  func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    navigationItem.title = webView.title
+  }
+
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension ComicViewController: UIScrollViewDelegate {
+
+  func scrollViewDidScroll(scrollView: UIScrollView) {
+    if webView.scrollView.bounds.size.height == 0 || webView.scrollView.contentSize.height == 0 {
+      subView.hidden = true
+      return
+    }
+    
+    let calc = (webView.scrollView.contentOffset.y + webView.scrollView.bounds.size.height) / webView.scrollView.contentSize.height
+    if calc >= 1.0 {
+      episode?.isRead()
+      subView.hidden = false
+      
+      if EpisodeManager.sharedInstance.availableEpisode(episodeIndex! + 1) {
+        nextEpisodeButton.hidden = false
+      } else {
+        nextEpisodeButton.hidden = true
+      }
+      
+      return
+    }
+    
+    subView.hidden = true
+    return
   }
 
 }
