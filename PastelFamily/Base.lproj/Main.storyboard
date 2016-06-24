@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kko-E9-uhj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kko-E9-uhj">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -22,10 +22,10 @@
             </objects>
             <point key="canvasLocation" x="-1042" y="139"/>
         </scene>
-        <!--Episode View Controller-->
+        <!--Episode List View Controller-->
         <scene sceneID="EE2-Il-w5c">
             <objects>
-                <viewController id="Ga3-nA-zsf" customClass="EpisodeViewController" customModule="PastelFamily" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ga3-nA-zsf" customClass="EpisodeListViewController" customModule="PastelFamily" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xWb-SG-sww"/>
                         <viewControllerLayoutGuide type="bottom" id="faM-Sa-WlG"/>
@@ -56,10 +56,10 @@
             </objects>
             <point key="canvasLocation" x="-330" y="150"/>
         </scene>
-        <!--Comic View Controller-->
+        <!--Episode Detail View Controller-->
         <scene sceneID="psh-Jz-khe">
             <objects>
-                <viewController storyboardIdentifier="ComicViewController" id="YdW-yE-HfL" userLabel="Comic View Controller" customClass="ComicViewController" customModule="PastelFamily" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EpisodeDetailViewController" id="YdW-yE-HfL" customClass="EpisodeDetailViewController" customModule="PastelFamily" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hYh-0C-dhg"/>
                         <viewControllerLayoutGuide type="bottom" id="oHF-mF-O9y"/>

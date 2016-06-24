@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0C46EFBF5C5BDE70659CBC2C /* Pods_PastelFamily.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 572BD0ED12F1221CB172B64D /* Pods_PastelFamily.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		43107F681C12AF4500A4C6D4 /* ComicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43107F671C12AF4500A4C6D4 /* ComicViewController.swift */; };
-		43107F6D1C12B72D00A4C6D4 /* EpisodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43107F6C1C12B72D00A4C6D4 /* EpisodeViewController.swift */; };
+		43107F681C12AF4500A4C6D4 /* EpisodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43107F671C12AF4500A4C6D4 /* EpisodeDetailViewController.swift */; };
+		43107F6D1C12B72D00A4C6D4 /* EpisodeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43107F6C1C12B72D00A4C6D4 /* EpisodeListViewController.swift */; };
 		433971201C0B26090080E600 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4339711F1C0B26090080E600 /* AppDelegate.swift */; };
 		433971251C0B26090080E600 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 433971231C0B26090080E600 /* Main.storyboard */; };
 		433971271C0B26090080E600 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 433971261C0B26090080E600 /* Assets.xcassets */; };
@@ -32,8 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		43107F671C12AF4500A4C6D4 /* ComicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComicViewController.swift; sourceTree = "<group>"; };
-		43107F6C1C12B72D00A4C6D4 /* EpisodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeViewController.swift; sourceTree = "<group>"; };
+		43107F671C12AF4500A4C6D4 /* EpisodeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeDetailViewController.swift; sourceTree = "<group>"; };
+		43107F6C1C12B72D00A4C6D4 /* EpisodeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeListViewController.swift; sourceTree = "<group>"; };
 		4339711C1C0B26090080E600 /* PastelFamily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PastelFamily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4339711F1C0B26090080E600 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		433971241C0B26090080E600 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -74,8 +74,8 @@
 		43107F6B1C12B66400A4C6D4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				43107F6C1C12B72D00A4C6D4 /* EpisodeViewController.swift */,
-				43107F671C12AF4500A4C6D4 /* ComicViewController.swift */,
+				43107F6C1C12B72D00A4C6D4 /* EpisodeListViewController.swift */,
+				43107F671C12AF4500A4C6D4 /* EpisodeDetailViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -331,8 +331,8 @@
 				43E2F7D21C12C0940081E8BD /* EpisodeManager.swift in Sources */,
 				43E2F7D01C12BEC00081E8BD /* EpisodeEntity.swift in Sources */,
 				433971201C0B26090080E600 /* AppDelegate.swift in Sources */,
-				43107F681C12AF4500A4C6D4 /* ComicViewController.swift in Sources */,
-				43107F6D1C12B72D00A4C6D4 /* EpisodeViewController.swift in Sources */,
+				43107F681C12AF4500A4C6D4 /* EpisodeDetailViewController.swift in Sources */,
+				43107F6D1C12B72D00A4C6D4 /* EpisodeListViewController.swift in Sources */,
 				4350D2471C13E14B00AB12DB /* EpisodeTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

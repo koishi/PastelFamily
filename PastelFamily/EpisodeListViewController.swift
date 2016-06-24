@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EpisodeViewController: UIViewController {
+class EpisodeListViewController: UIViewController {
   @IBOutlet weak private var tableView: UITableView!
 
   override func viewDidLoad() {
@@ -33,10 +33,10 @@ class EpisodeViewController: UIViewController {
 
 // MARK: - UITableDelegate
 
-extension EpisodeViewController: UITableViewDelegate {
+extension EpisodeListViewController: UITableViewDelegate {
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let vc = self.storyboard?.instantiateViewControllerWithIdentifier(ComicViewController.identifier) as! ComicViewController
+    let vc = self.storyboard?.instantiateViewControllerWithIdentifier(EpisodeDetailViewController.identifier) as! EpisodeDetailViewController
     vc.htmlString = EpisodeManager.sharedInstance.htmlString(indexPath.row)
     vc.episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
     vc.episodeIndex = indexPath.row
@@ -47,7 +47,7 @@ extension EpisodeViewController: UITableViewDelegate {
 
 // MARK: - UITableViewDataSource
 
-extension EpisodeViewController: UITableViewDataSource {
+extension EpisodeListViewController: UITableViewDataSource {
 
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(EpisodeTableViewCell.cellIdentifier) as! EpisodeTableViewCell

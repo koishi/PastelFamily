@@ -9,14 +9,14 @@
 import UIKit
 import WebKit
 
-final class ComicViewController: UIViewController {
+final class EpisodeDetailViewController: UIViewController {
 
   private var webView: WKWebView!
   var htmlString: String?
   var episode: EpisodeEntity?
   var episodeIndex: Int?
 
-  static let identifier = "ComicViewController"
+  static let identifier = "EpisodeDetailViewController"
 
   @IBOutlet weak var subView: UIView!
   @IBOutlet weak var nextEpisodeButton: UIButton!
@@ -72,7 +72,7 @@ final class ComicViewController: UIViewController {
 
 // MARK: - WKNavigationDelegate
 
-extension ComicViewController: WKNavigationDelegate {
+extension EpisodeDetailViewController: WKNavigationDelegate {
 
   func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
     navigationItem.title = webView.title
@@ -82,7 +82,7 @@ extension ComicViewController: WKNavigationDelegate {
 
 // MARK: - UIScrollViewDelegate
 
-extension ComicViewController: UIScrollViewDelegate {
+extension EpisodeDetailViewController: UIScrollViewDelegate {
 
   func scrollViewDidScroll(scrollView: UIScrollView) {
     if webView.scrollView.bounds.size.height == 0 || webView.scrollView.contentSize.height == 0 {
