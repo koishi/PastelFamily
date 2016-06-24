@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EpisodeTableViewCell: UITableViewCell {
+class EpisodeListTableViewCell: UITableViewCell {
 
   @IBOutlet weak private var episodeImage: UIImageView!
   @IBOutlet weak private var episodeTitle: UILabel!
@@ -40,7 +40,7 @@ class EpisodeTableViewCell: UITableViewCell {
     }
   }
 
-  static let cellIdentifier = "EpisodeTableViewCell"
+  static let cellIdentifier = "EpisodeListTableViewCell"
 
   override func awakeFromNib() {
     super.awakeFromNib()

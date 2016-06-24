@@ -17,7 +17,7 @@ class EpisodeListViewController: UIViewController {
 
     tableView.delegate = self
     tableView.dataSource = self
-    tableView.registerNib(UINib(nibName: EpisodeTableViewCell.cellIdentifier, bundle: nil), forCellReuseIdentifier: EpisodeTableViewCell.cellIdentifier)
+    tableView.registerNib(UINib(nibName: EpisodeListTableViewCell.cellIdentifier, bundle: nil), forCellReuseIdentifier: EpisodeListTableViewCell.cellIdentifier)
 
     EpisodeManager.sharedInstance.scrapingEpisodeList({
       self.tableView.reloadData()
@@ -50,7 +50,7 @@ extension EpisodeListViewController: UITableViewDelegate {
 extension EpisodeListViewController: UITableViewDataSource {
 
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(EpisodeTableViewCell.cellIdentifier) as! EpisodeTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier(EpisodeListTableViewCell.cellIdentifier) as! EpisodeListTableViewCell
     let episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
     cell.episode = episode
     return cell
