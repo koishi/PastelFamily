@@ -41,14 +41,24 @@ class EpisodeManager: NSObject {
         let contentDivNode = bodyNode.xPath("div[@id='wrap']/div[@id='contents']/div[@id='con_l']/table/tr/td/div[@class='style3']").first
         
         for childNode in contentDivNode!.children {
-            
-            if childNode.tag == "table" {
-                print(childNode)
-            }
-            
 
-            
-            
+            guard childNode.tag == "table" else {
+                continue
+            }
+
+            for tr in childNode.children {
+                
+                for td in tr.children {
+
+                    guard td.childrenWithName("p").count > 0 else {
+                        continue
+                    }
+                    for p in td.childrenWithName("p") {
+                        print(p)
+                    }
+                }
+            }
+
 //          let url = childNode.firstChildWithName("a")?.attributes["href"]
 //          var title = ""
 //          var imageUrl = ""
