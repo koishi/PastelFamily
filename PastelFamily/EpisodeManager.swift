@@ -50,10 +50,11 @@ class EpisodeManager: NSObject {
                 
                 for td in tr.children {
 
-                    guard td.childrenWithName("p").count > 0 else {
+                    let array = td.childrenWithName("p")
+                    guard array.count > 0 else {
                         continue
                     }
-                    for p in td.childrenWithName("p") {
+                    for p in array {
                         print(p)
                     }
                 }
