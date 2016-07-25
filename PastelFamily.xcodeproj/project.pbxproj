@@ -19,6 +19,7 @@
 		4350D2481C13E14B00AB12DB /* EpisodeListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4350D2461C13E14B00AB12DB /* EpisodeListTableViewCell.xib */; };
 		43E2F7D01C12BEC00081E8BD /* EpisodeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E2F7CF1C12BEC00081E8BD /* EpisodeEntity.swift */; };
 		43E2F7D21C12C0940081E8BD /* EpisodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E2F7D11C12C0940081E8BD /* EpisodeManager.swift */; };
+		CA21DE041D4603AE001E2D3F /* GogoItemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA21DE031D4603AE001E2D3F /* GogoItemEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		43E2F7D11C12C0940081E8BD /* EpisodeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeManager.swift; sourceTree = "<group>"; };
 		572BD0ED12F1221CB172B64D /* Pods_PastelFamily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PastelFamily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94A6D651D462F863698D69A /* Pods-PastelFamily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PastelFamily.release.xcconfig"; path = "Pods/Target Support Files/Pods-PastelFamily/Pods-PastelFamily.release.xcconfig"; sourceTree = "<group>"; };
+		CA21DE031D4603AE001E2D3F /* GogoItemEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GogoItemEntity.swift; sourceTree = "<group>"; };
 		EFC69C393B34B9B62263B2C0 /* Pods-PastelFamily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PastelFamily.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PastelFamily/Pods-PastelFamily.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				43E2F7CF1C12BEC00081E8BD /* EpisodeEntity.swift */,
+				CA21DE031D4603AE001E2D3F /* GogoItemEntity.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				433971201C0B26090080E600 /* AppDelegate.swift in Sources */,
 				43107F681C12AF4500A4C6D4 /* EpisodeDetailViewController.swift in Sources */,
 				43107F6D1C12B72D00A4C6D4 /* EpisodeListViewController.swift in Sources */,
+				CA21DE041D4603AE001E2D3F /* GogoItemEntity.swift in Sources */,
 				4350D2471C13E14B00AB12DB /* EpisodeListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

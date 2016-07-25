@@ -1,0 +1,86 @@
+//
+//  GogoItemEntity.swift
+//  PastelFamily
+//
+//  Created by 大石　弘一郎 on 2016/07/25.
+//  Copyright © 2016年 bs. All rights reserved.
+//
+
+import Foundation
+import RealmSwift
+
+class GogoItemEntity: Object {
+
+    // 放送日
+    dynamic var YYYYMMDD: String?
+    
+    // 曜日
+    dynamic var DayOfTheWeek: String?
+
+    // 地上波初放送フラグ
+    let IsFirstTerrestria = RealmOptional<Bool>(false)
+
+    // 特集テーマ
+    dynamic var SpecialTheme: String?
+    
+    // 邦題
+    dynamic var JapaneseTitle: String?
+    
+    // 原題
+    dynamic var EnglishTitle: String?
+    
+    // 公開年
+    dynamic var Year: String?
+    
+    // 製作国
+    dynamic var Country: String?
+
+    // 画像URL
+    dynamic var imageUrl: String?
+    
+//    dynamic var url: String?
+
+    //            http://www.tv-tokyo.co.jp/telecine/oa_afr_load/backnumber/201607/20160704.jpg
+    //
+    //            <div class="gogo_item" data-oastart="2016070113500000" data-oaend="2016070115550000">
+    //            <span class="g_img"><img src="/telecine/oa_afr_load/images/photo_now_printing.jpg" data-original="/telecine/oa_afr_load/backnumber/201607/20160701.jpg"></span>
+    //            <span class="g_day roboto"><span class="g_hide">7/</span>1<span class="g_hide small">[金]</span></span>
+    //            <span class="g_red"><!-- 地上波初 --></span>
+    //            <div class="g_data_block">
+    //            <span class="g_sp_thema"></span>
+    //            <h3>
+    //            <span class="jp">ドライブ・アングリー</span><span class="en roboto">DRIVE ANGRY</span>
+    //            </h3>
+    //            <div class="other_data g_hide">
+    //            <span class="g_country_year">2011<span class="dot">◆</span>アメリカ</span>
+    //            <div class="g_other_data">
+    //            <div class="g_t">
+    //            <span class="g_c"><span class="data_title">監督</span></span>
+    //            <span class="g_c">パトリック・ルシエ</span>
+    //            </div>
+    //            <div class="g_t">
+    //            <span class="g_c"><span class="data_title">出演</span></span>
+    //            <span class="g_c">ニコラス・ケイジ／アンバー・ハード</span>
+    //            </div>
+    //            </div>
+    //            </div>
+    //            </div>
+    //            <div class="gogo_share">★<span class="roboto">SHARE</span>
+    //            </div>
+    //            <div class="gogo_share_window">
+    //            <div class="googo_share_title"></div>
+    //            <div class="gogo_social_bar"></div>
+    //            <a href="#close" class="close">×</a>
+    //            </div>
+    //            </div>
+
+}
+
+class GogoItemDetailEntity: Object {
+    
+    // 詳細情報タイトル
+    dynamic var detailTitle: String?
+    
+    // 詳細情報明細
+    dynamic var detailData: [String]?
+}

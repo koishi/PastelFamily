@@ -11,7 +11,7 @@ import RealmSwift
 
 class EpisodeManager: NSObject {
   
-  static let titleName = "パステル家族"
+  static let titleName = "午後の映画アプリ"
 
   private(set) var episodes: Results<EpisodeEntity>
 
@@ -37,29 +37,26 @@ class EpisodeManager: NSObject {
       
       let jiDoc = Ji(htmlURL: NSURL(string: "http://www.tv-tokyo.co.jp/telecine/oa_afr_load/")!)
 
-      if let bodyNode = jiDoc?.xPath("//body")!.first {
-        let contentDivNode = bodyNode.xPath("div[@id='wrap']/div[@id='contents']/div[@id='con_l']/table/tr/td/div[@class='style3']").first
+        guard let bodyNode = jiDoc?.xPath("//body/main")!.first else {
+            return
+        }
+        
+        let contentDivNode = bodyNode.xPath("div[@class='wrapper']/div[@class='clearfix']/div[@id='content_left']/div[@id='contents']").first
         
         for childNode in contentDivNode!.children {
 
-            guard childNode.tag == "table" else {
+            guard childNode.attributes["class"] == "gogo_lineup_block mt50", let month = childNode.xPath("div[@class='all_lineup clearfix mt10']").first else {
                 continue
             }
 
-            for tr in childNode.children {
-                
-                for td in tr.children {
+            for gogoitem in month.children {
 
-                    let array = td.childrenWithName("p")
-                    guard array.count > 0 else {
-                        continue
-                    }
-                    for p in array {
-                        print(p)
-                    }
+                guard gogoitem.attributes["class"] == "gogo_item" else {
+                    continue
                 }
+                print(gogoitem)
             }
-
+            
 //          let url = childNode.firstChildWithName("a")?.attributes["href"]
 //          var title = ""
 //          var imageUrl = ""
@@ -96,7 +93,6 @@ class EpisodeManager: NSObject {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         completion()
       }
-    }
   }
 
   private func scrapingKomaFromEpisode(url: String) -> List<Koma> {
