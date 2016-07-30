@@ -9,15 +9,15 @@
 import Ji
 import RealmSwift
 
-class EpisodeManager: NSObject {
+class GogoItemManager: NSObject {
   
   static let titleName = "午後の映画アプリ"
 
   private(set) var episodes: Results<EpisodeEntity>
 
-  class var sharedInstance: EpisodeManager {
+  class var sharedInstance: GogoItemManager {
     struct Static {
-      static let instance = EpisodeManager()
+      static let instance = GogoItemManager()
     }
     return Static.instance
   }

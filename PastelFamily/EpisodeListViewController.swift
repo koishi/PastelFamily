@@ -13,13 +13,13 @@ class EpisodeListViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.navigationItem.title = EpisodeManager.titleName
+    self.navigationItem.title = GogoItemManager.titleName
 
     tableView.delegate = self
     tableView.dataSource = self
     tableView.registerNib(UINib(nibName: EpisodeListTableViewCell.cellIdentifier, bundle: nil), forCellReuseIdentifier: EpisodeListTableViewCell.cellIdentifier)
 
-    EpisodeManager.sharedInstance.scrapingEpisodeList({
+    GogoItemManager.sharedInstance.scrapingEpisodeList({
       self.tableView.reloadData()
     })
   }
@@ -37,8 +37,8 @@ extension EpisodeListViewController: UITableViewDelegate {
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let vc = self.storyboard?.instantiateViewControllerWithIdentifier(EpisodeDetailViewController.identifier) as! EpisodeDetailViewController
-    vc.htmlString = EpisodeManager.sharedInstance.htmlString(indexPath.row)
-    vc.episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
+    vc.htmlString = GogoItemManager.sharedInstance.htmlString(indexPath.row)
+    vc.episode = GogoItemManager.sharedInstance.episodes[indexPath.row]
     vc.episodeIndex = indexPath.row
     self.navigationController?.pushViewController(vc, animated: true)
   }
@@ -51,13 +51,13 @@ extension EpisodeListViewController: UITableViewDataSource {
 
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(EpisodeListTableViewCell.cellIdentifier) as! EpisodeListTableViewCell
-    let episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
+    let episode = GogoItemManager.sharedInstance.episodes[indexPath.row]
     cell.episode = episode
     return cell
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return EpisodeManager.sharedInstance.count()
+    return GogoItemManager.sharedInstance.count()
   }
 
 }

@@ -56,10 +56,10 @@ final class EpisodeDetailViewController: UIViewController {
   // MARK: IBAction
   
   @IBAction func tappedNextEpisodeButton(sender: AnyObject) {
-    if let html = EpisodeManager.sharedInstance.nextEpisodeHtml(episodeIndex!) {
+    if let html = GogoItemManager.sharedInstance.nextEpisodeHtml(episodeIndex!) {
       htmlString = html
       episodeIndex! += 1
-      episode = EpisodeManager.sharedInstance.episodes[episodeIndex!]
+      episode = GogoItemManager.sharedInstance.episodes[episodeIndex!]
       webView.loadHTMLString(htmlString!, baseURL: nil)
     }
   }
@@ -95,7 +95,7 @@ extension EpisodeDetailViewController: UIScrollViewDelegate {
       episode?.isRead()
       subView.hidden = false
       
-      if EpisodeManager.sharedInstance.availableEpisode(episodeIndex! + 1) {
+      if GogoItemManager.sharedInstance.availableEpisode(episodeIndex! + 1) {
         nextEpisodeButton.hidden = false
       } else {
         nextEpisodeButton.hidden = true
