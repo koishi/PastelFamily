@@ -10,16 +10,16 @@ import Foundation
 import RealmSwift
 
 class GogoItemEntity: Object {
-
+    
     // 放送日
     dynamic var YYYYMMDD: String?
     
     // 曜日
     dynamic var DayOfTheWeek: String?
-
+    
     // 地上波初放送フラグ
     let IsFirstTerrestria = RealmOptional<Bool>(false)
-
+    
     // 特集テーマ
     dynamic var SpecialTheme: String?
     
@@ -34,11 +34,13 @@ class GogoItemEntity: Object {
     
     // 製作国
     dynamic var Country: String?
-
+    
     // 画像URL
     dynamic var imageUrl: String?
     
-//    dynamic var url: String?
+    var detailEntities = List<GogoItemDetailEntity>()
+
+    dynamic var url: String?
 
     //            http://www.tv-tokyo.co.jp/telecine/oa_afr_load/backnumber/201607/20160704.jpg
     //
@@ -73,14 +75,21 @@ class GogoItemEntity: Object {
     //            <a href="#close" class="close">×</a>
     //            </div>
     //            </div>
-
+    
 }
 
 class GogoItemDetailEntity: Object {
     
     // 詳細情報タイトル
     dynamic var detailTitle: String?
-    
+
     // 詳細情報明細
-    dynamic var detailData: [String]?
+    var messages = List<GogoItemDetailDataEntity>()
+}
+
+class GogoItemDetailDataEntity: Object {
+
+    // 詳細情報
+    dynamic var dara: String?
+
 }
