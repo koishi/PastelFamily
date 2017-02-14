@@ -55,9 +55,16 @@ class GogoItemManager: NSObject {
                     continue
                 }
 
-                /// 開始日時・終了日時
-                print(gogoitem.attributes["data-oastart"])
-                print(gogoitem.attributes["data-oaend"])
+                /// 放映日時
+                if let time = gogoitem.attributes["data-oastart"] {
+                    let formatter = NSDateFormatter()
+                    formatter.dateFormat = "yyyyMMddHHmmssSS"
+                    if let date = formatter.dateFromString(time) {
+                        formatter.dateFormat = "M/d HH:mm〜"
+                        let dateString = formatter.stringFromDate(date)
+                        print(dateString)
+                    }
+                }
 
                 /// 地上波初
                 if let g_red = gogoitem.xPath("span[@class='g_red']").first?.value {
