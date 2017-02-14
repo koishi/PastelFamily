@@ -54,7 +54,45 @@ class GogoItemManager: NSObject {
                 guard gogoitem.attributes["class"] == "gogo_item" else {
                     continue
                 }
-                print(gogoitem)
+
+                /// 地上波初
+                let g_red = gogoitem.xPath("span[@class='g_red']").first
+                print(g_red?.value)
+
+                if let g_data_block = gogoitem.xPath("div[@class='g_data_block']").first {
+
+                    /// テーマ
+                    let g_sp_thema = g_data_block.xPath("span[@class='g_sp_thema']").first
+                    print(g_sp_thema?.value)
+
+                    if let titles = g_data_block.xPath("h3").first {
+                        
+                        /// 邦題
+                        let jp = titles.xPath("span[@class='jp']").first
+                        print(jp?.value)
+                        
+                        /// 原題
+                        let en = titles.xPath("span[@class='en roboto']").first
+                        print(en?.value)
+                    }
+
+                    if let otherData = g_data_block.xPath("div[@class='other_data g_hide']").first {
+                        print(otherData)
+                    }
+                    
+                    
+
+                    
+
+
+                    
+                    
+                }
+                
+
+                
+                
+                
             }
             
 //          let url = childNode.firstChildWithName("a")?.attributes["href"]
