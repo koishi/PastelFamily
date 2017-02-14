@@ -55,9 +55,14 @@ class GogoItemManager: NSObject {
                     continue
                 }
 
+                /// 開始日時・終了日時
+                print(gogoitem.attributes["data-oastart"])
+                print(gogoitem.attributes["data-oaend"])
+
                 /// 地上波初
-                let g_red = gogoitem.xPath("span[@class='g_red']").first
-                print(g_red?.value)
+                if let g_red = gogoitem.xPath("span[@class='g_red']").first?.value {
+                    print(g_red)
+                }
 
                 if let g_data_block = gogoitem.xPath("div[@class='g_data_block']").first {
 
