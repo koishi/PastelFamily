@@ -76,55 +76,27 @@ class GogoItemManager: NSObject {
                         print(en?.value)
                     }
 
-                    if let otherData = g_data_block.xPath("div[@class='other_data g_hide']").first {
-                        print(otherData)
+                    if let otherDataGhide = g_data_block.xPath("div[@class='other_data g_hide']").first {
+
+                        /// 制作年・国
+                        let g_country_year = otherDataGhide.xPath("span[@class='g_country_year']").first
+                        print(g_country_year?.value)
+                        
+                        /// 監督・出演
+                        if let otherData = otherDataGhide.xPath("div[@class='g_other_data']").first {
+
+                            let gt_array = otherData.xPath("div[@class='g_t']")
+                            for gt in gt_array {
+                                let gt_childs = gt.xPath("span[@class='g_c']")
+                                if gt_childs.count  >= 2 {
+                                    print(gt_childs[0].xPath("span[@class='data_title']").first?.value)
+                                    print(gt_childs[1].value)
+                                }
+                            }
+                        }
                     }
-                    
-                    
-
-                    
-
-
-                    
-                    
                 }
-                
-
-                
-                
-                
             }
-            
-//          let url = childNode.firstChildWithName("a")?.attributes["href"]
-//          var title = ""
-//          var imageUrl = ""
-//
-//          // すでに存在するURLならスキップする
-//          let result = realm.objects(EpisodeEntity).filter("url = '\(url!)'")
-//          if result.count != 0 {
-//            continue
-//          }
-//
-//          for childNode in (childNode.firstChildWithName("a")?.childrenWithName("p"))! {
-//            if let plainTitle = childNode.firstChildWithName("img")?.attributes["alt"] {
-//              title = plainTitle.stringByReplacingOccurrencesOfString(EpisodeManager.titleName, withString: "")
-//            }
-//            if let imgSrc = childNode.firstChildWithName("img")?.attributes["src"] {
-//              imageUrl = imgSrc
-//            }
-//            break
-//          }
-//
-//          let episode = EpisodeEntity(title: title, url: url!, imageUrl: imageUrl)
-//          episode.komaUrl = self.scrapingKomaFromEpisode(episode.url!)
-//
-//          try! realm.write {
-//            realm.add(episode)
-//          }
-//
-//          dispatch_async(dispatch_get_main_queue()) {
-//            completion()
-//          }
         }
       }
       dispatch_async(dispatch_get_main_queue()) {
