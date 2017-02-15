@@ -80,7 +80,11 @@ class GogoItemManager: NSObject {
     /// 地上波初
     if let g_red = gogoitem.xPath("span[@class='g_red']").first?.value {
         gogoItemEntity.isFirstTerrestria = RealmOptional<Bool>(true)
-        print(g_red)
+    }
+    
+    /// 画像
+    if let g_img = gogoitem.xPath("span[@class='g_img']/img").first?.attributes["data-original"] {
+        gogoItemEntity.imageUrl = "http://www.tv-tokyo.co.jp" + g_img
     }
     
     if let g_data_block = gogoitem.xPath("div[@class='g_data_block']").first {
