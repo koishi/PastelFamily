@@ -10,12 +10,9 @@ import Foundation
 import RealmSwift
 
 class GogoItemEntity: Object {
-    
+
     // 放送日
     dynamic var date: String?
-    
-    // 曜日
-    dynamic var dayOfTheWeek: String?
     
     // 地上波初放送フラグ
     var isFirstTerrestria = RealmOptional<Bool>(false)

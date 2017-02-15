@@ -45,85 +45,15 @@ class GogoItemManager: NSObject {
 
         /// エンティティを抽出
         for childNode in contentDivNode!.children {
-            
             guard childNode.attributes["class"] == "gogo_lineup_block mt50", let month = childNode.xPath("div[@class='all_lineup clearfix mt10']").first else {
                 continue
             }
-
             for gogoitem in month.children {
-
                 guard gogoitem.attributes["class"] == "gogo_item" else {
                     continue
                 }
-
-                let gogoItemEntity = GogoItemEntity()
-                
-                /// 放映日時
-                if let time = gogoitem.attributes["data-oastart"] {
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyyMMddHHmmssSS"
-                    if let date = formatter.date(from: time) {
-                        formatter.dateFormat = "M/d HH:mm〜"
-//                        let dateString = formatter.stringFromDate(date)
-//                        print(dateString)
-                    }
-                    gogoItemEntity.date = time
-                }
-
-                /// 地上波初
-                if let g_red = gogoitem.xPath("span[@class='g_red']").first?.value {
-                    gogoItemEntity.isFirstTerrestria = RealmOptional<Bool>(false)
-                    print(g_red)
-                }
-
-                if let g_data_block = gogoitem.xPath("div[@class='g_data_block']").first {
-
-                    /// テーマ
-                    if let g_sp_thema = g_data_block.xPath("span[@class='g_sp_thema']").first {
-                        gogoItemEntity.specialTheme = g_sp_thema.value
-                    }
-
-                    if let titles = g_data_block.xPath("h3").first {
-                        
-                        /// 邦題
-                        if let jp = titles.xPath("span[@class='jp']").first {
-                            gogoItemEntity.japaneseTitle = jp.value
-                        }
-                        
-                        /// 原題
-                        if let en = titles.xPath("span[@class='en roboto']").first {
-                            gogoItemEntity.englishTitle = en.value
-                        }
-
-                    }
-
-                    if let otherDataGhide = g_data_block.xPath("div[@class='other_data g_hide']").first {
-
-                        /// 制作年・国
-                        if let g_country_year = otherDataGhide.xPath("span[@class='g_country_year']").first {
-                            gogoItemEntity.country = g_country_year.value
-                            gogoItemEntity.year = g_country_year.value
-                        }
-
-                        
-                        /// 監督・出演
-                        if let otherData = otherDataGhide.xPath("div[@class='g_other_data']").first {
-
-                            let gt_array = otherData.xPath("div[@class='g_t']")
-                            for gt in gt_array {
-                                let gt_childs = gt.xPath("span[@class='g_c']")
-                                if gt_childs.count  >= 2 {
-                                    let category = GogoItemDetailEntity()
-                                    category.title = gt_childs[0].xPath("span[@class='data_title']").first?.value
-                                    let person = GogoItemDetailEntity()
-                                    person.title = gt_childs[1].value
-                                    gogoItemEntity.detailEntities.append(category)
-                                    gogoItemEntity.detailEntities.append(person)
-                                }
-                            }
-                        }
-                    }
-                }
+                let gogoItemEntity = self.gogoItemEntityGet(gogoitem: gogoitem)
+                print(gogoItemEntity)
             }
         }
       }
@@ -133,7 +63,78 @@ class GogoItemManager: NSObject {
       }
   }
 
-  fileprivate func scrapingKomaFromEpisode(_ url: String) -> List<Koma> {
+  private func gogoItemEntityGet(gogoitem: JiNode) -> GogoItemEntity {
+
+    let gogoItemEntity = GogoItemEntity()
+    
+    /// 放映日時
+    if let time = gogoitem.attributes["data-oastart"] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmmssSS"
+        if let date = formatter.date(from: time) {
+            formatter.dateFormat = "yyyyMMddHHmm"
+            gogoItemEntity.date = formatter.string(from: date)
+        }
+    }
+
+    /// 地上波初
+    if let g_red = gogoitem.xPath("span[@class='g_red']").first?.value {
+        gogoItemEntity.isFirstTerrestria = RealmOptional<Bool>(true)
+        print(g_red)
+    }
+    
+    if let g_data_block = gogoitem.xPath("div[@class='g_data_block']").first {
+        
+        /// テーマ
+        if let g_sp_thema = g_data_block.xPath("span[@class='g_sp_thema']").first {
+            gogoItemEntity.specialTheme = g_sp_thema.value
+        }
+        
+        if let titles = g_data_block.xPath("h3").first {
+            
+            /// 邦題
+            if let jp = titles.xPath("span[@class='jp']").first {
+                gogoItemEntity.japaneseTitle = jp.value
+            }
+            
+            /// 原題
+            if let en = titles.xPath("span[@class='en roboto']").first {
+                gogoItemEntity.englishTitle = en.value
+            }
+            
+        }
+        
+        if let otherDataGhide = g_data_block.xPath("div[@class='other_data g_hide']").first {
+            
+            /// 制作年・国
+            if let g_country_year = otherDataGhide.xPath("span[@class='g_country_year']").first {
+                gogoItemEntity.country = g_country_year.value
+                gogoItemEntity.year = g_country_year.value
+            }
+            
+            
+            /// 監督・出演
+            if let otherData = otherDataGhide.xPath("div[@class='g_other_data']").first {
+                
+                let gt_array = otherData.xPath("div[@class='g_t']")
+                for gt in gt_array {
+                    let gt_childs = gt.xPath("span[@class='g_c']")
+                    if gt_childs.count  >= 2 {
+                        let category = GogoItemDetailEntity()
+                        category.title = gt_childs[0].xPath("span[@class='data_title']").first?.value
+                        let person = GogoItemDetailEntity()
+                        person.title = gt_childs[1].value
+                        gogoItemEntity.detailEntities.append(category)
+                        gogoItemEntity.detailEntities.append(person)
+                    }
+                }
+            }
+        }
+    }
+    return gogoItemEntity
+  }
+
+  func scrapingKomaFromEpisode(_ url: String) -> List<Koma> {
     let jiDoc = Ji(htmlURL: URL(string: url)!)
     let bodyNode = jiDoc?.xPath("//body")!.first!
     let contentDivNode = bodyNode!.xPath("div[@class='m-comico-body o-section-bg-01 o-pb50']/div[@class='m-comico-body__inner']/div[@class='m-section-detail o-mt-1']/section[@class='m-section-detail__body']").first
