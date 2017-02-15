@@ -1,0 +1,29 @@
+PODS:
+  - Ji (2.0.1):
+    - Ji/Ji (= 2.0.1)
+  - Ji/Ji (2.0.1):
+    - Ji/Ji-libxml
+  - Ji/Ji-libxml (2.0.1)
+  - Realm (2.4.2):
+    - Realm/Headers (= 2.4.2)
+  - Realm/Headers (2.4.2)
+  - RealmSwift (2.4.2):
+    - Realm (= 2.4.2)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
+
+DEPENDENCIES:
+  - Ji
+  - RealmSwift
+  - SDWebImage
+
+SPEC CHECKSUMS:
+  Ji: 6bb602a28dd08b804158f64990e6051ed5de0110
+  Realm: d27b758e12d62a3371879a065d4c40aa212c5a54
+  RealmSwift: 9556c0fe0f0cfecacfb755ae9e68ff379fc6bead
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+
+PODFILE CHECKSUM: 2f8e8d949e8c086a5d3232a8b5cee8a045cb9973
+
+COCOAPODS: 1.1.1
