@@ -31,7 +31,7 @@ class GogoItemManager: NSObject {
 
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
-    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+    DispatchQueue.global(qos: .userInitiated).async {
 
       let realm = try! Realm()
       
