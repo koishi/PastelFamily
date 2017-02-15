@@ -13,7 +13,7 @@ class GogoItemManager: NSObject {
   
   static let titleName = "午後の映画アプリ"
 
-  private(set) var episodes: Results<EpisodeEntity>
+  fileprivate(set) var episodes: Results<EpisodeEntity>
 
   class var sharedInstance: GogoItemManager {
     struct Static {
@@ -27,24 +27,25 @@ class GogoItemManager: NSObject {
     episodes = realm.objects(EpisodeEntity)
   }
 
-  func scrapingEpisodeList(completion:() -> Void) {
+  func scrapingGogoitemList(_ completion:@escaping () -> Void) {
 
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
 
       let realm = try! Realm()
       
-      let jiDoc = Ji(htmlURL: NSURL(string: "http://www.tv-tokyo.co.jp/telecine/oa_afr_load/")!)
+      let jiDoc = Ji(htmlURL: URL(string: "http://www.tv-tokyo.co.jp/telecine/oa_afr_load/")!)
 
         guard let bodyNode = jiDoc?.xPath("//body/main")!.first else {
             return
         }
         
         let contentDivNode = bodyNode.xPath("div[@class='wrapper']/div[@class='clearfix']/div[@id='content_left']/div[@id='contents']").first
-        
-        for childNode in contentDivNode!.children {
 
+        /// エンティティを抽出
+        for childNode in contentDivNode!.children {
+            
             guard childNode.attributes["class"] == "gogo_lineup_block mt50", let month = childNode.xPath("div[@class='all_lineup clearfix mt10']").first else {
                 continue
             }
@@ -55,19 +56,23 @@ class GogoItemManager: NSObject {
                     continue
                 }
 
+                let gogoItemEntity = GogoItemEntity()
+                
                 /// 放映日時
                 if let time = gogoitem.attributes["data-oastart"] {
-                    let formatter = NSDateFormatter()
+                    let formatter = DateFormatter()
                     formatter.dateFormat = "yyyyMMddHHmmssSS"
-                    if let date = formatter.dateFromString(time) {
+                    if let date = formatter.date(from: time) {
                         formatter.dateFormat = "M/d HH:mm〜"
-                        let dateString = formatter.stringFromDate(date)
-                        print(dateString)
+//                        let dateString = formatter.stringFromDate(date)
+//                        print(dateString)
                     }
+                    gogoItemEntity.date = time
                 }
 
                 /// 地上波初
                 if let g_red = gogoitem.xPath("span[@class='g_red']").first?.value {
+//                    gogoItemEntity.isFirstTerrestria = true
                     print(g_red)
                 }
 
@@ -111,14 +116,14 @@ class GogoItemManager: NSObject {
             }
         }
       }
-      dispatch_async(dispatch_get_main_queue()) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+      DispatchQueue.main.async {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         completion()
       }
   }
 
-  private func scrapingKomaFromEpisode(url: String) -> List<Koma> {
-    let jiDoc = Ji(htmlURL: NSURL(string: url)!)
+  fileprivate func scrapingKomaFromEpisode(_ url: String) -> List<Koma> {
+    let jiDoc = Ji(htmlURL: URL(string: url)!)
     let bodyNode = jiDoc?.xPath("//body")!.first!
     let contentDivNode = bodyNode!.xPath("div[@class='m-comico-body o-section-bg-01 o-pb50']/div[@class='m-comico-body__inner']/div[@class='m-section-detail o-mt-1']/section[@class='m-section-detail__body']").first
 
@@ -133,7 +138,7 @@ class GogoItemManager: NSObject {
     return episodes.count
   }
 
-  func htmlString(index: Int) -> String {
+  func htmlString(_ index: Int) -> String {
     let episode = episodes[index]
     var html = "<html lang=\"ja\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width\"><title>\(episode.title!)</title>"
     for komaUrl in episode.komaUrl {
@@ -143,14 +148,14 @@ class GogoItemManager: NSObject {
     return html
   }
 
-  func nextEpisodeHtml(index: Int) -> String? {
+  func nextEpisodeHtml(_ index: Int) -> String? {
     if availableEpisode(index + 1) {
       return htmlString(index + 1)
     }
     return nil
   }
 
-  func availableEpisode(index: Int) -> Bool {
+  func availableEpisode(_ index: Int) -> Bool {
     return count() >= index + 1
   }
   

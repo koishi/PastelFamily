@@ -12,28 +12,28 @@ import RealmSwift
 class GogoItemEntity: Object {
     
     // 放送日
-    dynamic var YYYYMMDD: String?
+    dynamic var date: String?
     
     // 曜日
-    dynamic var DayOfTheWeek: String?
+    dynamic var dayOfTheWeek: String?
     
     // 地上波初放送フラグ
-    let IsFirstTerrestria = RealmOptional<Bool>(false)
+    var isFirstTerrestria = RealmOptional<Bool>(false)
     
     // 特集テーマ
-    dynamic var SpecialTheme: String?
+    dynamic var specialTheme: String?
     
     // 邦題
-    dynamic var JapaneseTitle: String?
+    dynamic var japaneseTitle: String?
     
     // 原題
-    dynamic var EnglishTitle: String?
+    dynamic var englishTitle: String?
     
     // 公開年
-    dynamic var Year: String?
+    dynamic var year: String?
     
     // 製作国
-    dynamic var Country: String?
+    dynamic var country: String?
     
     // 画像URL
     dynamic var imageUrl: String?

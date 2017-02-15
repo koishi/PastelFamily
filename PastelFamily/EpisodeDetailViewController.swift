@@ -11,7 +11,7 @@ import WebKit
 
 final class EpisodeDetailViewController: UIViewController {
 
-  private var webView: WKWebView!
+  fileprivate var webView: WKWebView!
   var htmlString: String?
   var episode: EpisodeEntity?
   var episodeIndex: Int?
@@ -35,27 +35,27 @@ final class EpisodeDetailViewController: UIViewController {
     }
   }
   
-  override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(_ animated: Bool) {
     webView.scrollView.delegate = nil;
   }
 
-  private func setupSubViews() {
+  fileprivate func setupSubViews() {
     webView.navigationDelegate = self
     webView.scrollView.delegate = self
     webView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(webView)
-    view.sendSubviewToBack(webView)
+    view.sendSubview(toBack: webView)
     var viewBindingsDict = [String: AnyObject]()
     viewBindingsDict["webView"] = webView
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[webView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewBindingsDict))
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewBindingsDict))
+    view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[webView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewBindingsDict))
+    view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[webView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewBindingsDict))
 
-    subView.hidden = true
+    subView.isHidden = true
   }
 
   // MARK: IBAction
   
-  @IBAction func tappedNextEpisodeButton(sender: AnyObject) {
+  @IBAction func tappedNextEpisodeButton(_ sender: AnyObject) {
     if let html = GogoItemManager.sharedInstance.nextEpisodeHtml(episodeIndex!) {
       htmlString = html
       episodeIndex! += 1
@@ -64,7 +64,7 @@ final class EpisodeDetailViewController: UIViewController {
     }
   }
 
-  @IBAction func tappedFavoriteButton(sender: AnyObject) {
+  @IBAction func tappedFavoriteButton(_ sender: AnyObject) {
     episode?.isFavorite()
   }
 
@@ -74,7 +74,7 @@ final class EpisodeDetailViewController: UIViewController {
 
 extension EpisodeDetailViewController: WKNavigationDelegate {
 
-  func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+  func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
     navigationItem.title = webView.title
   }
 
@@ -84,27 +84,27 @@ extension EpisodeDetailViewController: WKNavigationDelegate {
 
 extension EpisodeDetailViewController: UIScrollViewDelegate {
 
-  func scrollViewDidScroll(scrollView: UIScrollView) {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if webView.scrollView.bounds.size.height == 0 || webView.scrollView.contentSize.height == 0 {
-      subView.hidden = true
+      subView.isHidden = true
       return
     }
     
     let calc = (webView.scrollView.contentOffset.y + webView.scrollView.bounds.size.height) / webView.scrollView.contentSize.height
     if calc >= 1.0 {
       episode?.isRead()
-      subView.hidden = false
+      subView.isHidden = false
       
       if GogoItemManager.sharedInstance.availableEpisode(episodeIndex! + 1) {
-        nextEpisodeButton.hidden = false
+        nextEpisodeButton.isHidden = false
       } else {
-        nextEpisodeButton.hidden = true
+        nextEpisodeButton.isHidden = true
       }
       
       return
     }
     
-    subView.hidden = true
+    subView.isHidden = true
     return
   }
 

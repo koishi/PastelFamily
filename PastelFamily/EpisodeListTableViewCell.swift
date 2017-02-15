@@ -10,9 +10,9 @@ import UIKit
 
 class EpisodeListTableViewCell: UITableViewCell {
 
-  @IBOutlet weak private var episodeImage: UIImageView!
-  @IBOutlet weak private var episodeTitle: UILabel!
-  @IBOutlet weak private var favoriteLabel: UILabel!
+  @IBOutlet weak fileprivate var episodeImage: UIImageView!
+  @IBOutlet weak fileprivate var episodeTitle: UILabel!
+  @IBOutlet weak fileprivate var favoriteLabel: UILabel!
 
   var episode: EpisodeEntity? {
 
@@ -26,16 +26,16 @@ class EpisodeListTableViewCell: UITableViewCell {
       
       if let isReadFlag = episode.isReadFlag.value {
         if isReadFlag {
-          episodeTitle.textColor = UIColor.grayColor()
+          episodeTitle.textColor = UIColor.gray
         } else {
-          episodeTitle.textColor = UIColor.blackColor()
+          episodeTitle.textColor = UIColor.black
         }
       }
 
       if let isFavoriteFlag = episode.isFavoriteFlag.value {
-        favoriteLabel.hidden = !isFavoriteFlag
+        favoriteLabel.isHidden = !isFavoriteFlag
       }
-      episodeImage.sd_setImageWithURL(NSURL(string: episode.imageUrl!))
+      episodeImage.sd_setImage(with: URL(string: episode.imageUrl!))
 
     }
   }
@@ -46,7 +46,7 @@ class EpisodeListTableViewCell: UITableViewCell {
     super.awakeFromNib()
   }
 
-  override func setSelected(selected: Bool, animated: Bool) {
+  override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
   }
   
