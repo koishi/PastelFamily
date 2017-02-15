@@ -69,12 +69,15 @@ class GogoItemManager: NSObject {
     
     /// 放映日時
     if let time = gogoitem.attributes["data-oastart"] {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMddHHmmssSS"
-        if let date = formatter.date(from: time) {
-            formatter.dateFormat = "yyyyMMddHHmm"
-            gogoItemEntity.date = formatter.string(from: date)
-        }
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyyMMddHHmmssSS"
+//        if let date = formatter.date(from: time) {
+//            formatter.dateFormat = "yyyyMMddHHmm"
+//            gogoItemEntity.date = formatter.string(from: date)
+//        }
+        gogoItemEntity.date = time
+        gogoItemEntity.url = "http://www.tv-tokyo.co.jp/telecine/oa_afr_load/?trgt=" + time
+        //    http://www.tv-tokyo.co.jp/telecine/oa_afr_load/?trgt=2017021713500000
     }
 
     /// 地上波初
