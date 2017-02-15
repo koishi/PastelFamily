@@ -24,7 +24,7 @@ class GogoItemManager: NSObject {
   
   required override init() {
     let realm = try! Realm()
-    episodes = realm.objects(EpisodeEntity)
+    episodes = realm.objects(EpisodeEntity.self)
   }
 
   func scrapingGogoitemList(_ completion:@escaping () -> Void) {
@@ -81,7 +81,6 @@ class GogoItemManager: NSObject {
                     /// テーマ
                     if let g_sp_thema = g_data_block.xPath("span[@class='g_sp_thema']").first {
                         gogoItemEntity.specialTheme = g_sp_thema.value
-                        //                    print(g_sp_thema?.value)
                     }
 
                     if let titles = g_data_block.xPath("h3").first {
@@ -89,13 +88,11 @@ class GogoItemManager: NSObject {
                         /// 邦題
                         if let jp = titles.xPath("span[@class='jp']").first {
                             gogoItemEntity.japaneseTitle = jp.value
-//                            print(jp.value)
                         }
                         
                         /// 原題
                         if let en = titles.xPath("span[@class='en roboto']").first {
                             gogoItemEntity.englishTitle = en.value
-//                            print(en?.value)
                         }
 
                     }
@@ -106,7 +103,6 @@ class GogoItemManager: NSObject {
                         if let g_country_year = otherDataGhide.xPath("span[@class='g_country_year']").first {
                             gogoItemEntity.country = g_country_year.value
                             gogoItemEntity.year = g_country_year.value
-//                            print(g_country_year?.value)
                         }
 
                         
@@ -117,15 +113,12 @@ class GogoItemManager: NSObject {
                             for gt in gt_array {
                                 let gt_childs = gt.xPath("span[@class='g_c']")
                                 if gt_childs.count  >= 2 {
-                                    
-                                    var category = GogoItemDetailEntity()
+                                    let category = GogoItemDetailEntity()
                                     category.title = gt_childs[0].xPath("span[@class='data_title']").first?.value
-                                    var person = GogoItemDetailEntity()
+                                    let person = GogoItemDetailEntity()
                                     person.title = gt_childs[1].value
                                     gogoItemEntity.detailEntities.append(category)
                                     gogoItemEntity.detailEntities.append(person)
-//                                    print(gt_childs[0].xPath("span[@class='data_title']").first?.value)
-//                                    print(gt_childs[1].value)
                                 }
                             }
                         }
