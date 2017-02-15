@@ -81,10 +81,10 @@ class GogoItemEntity: Object {
 class GogoItemDetailEntity: Object {
     
     // 詳細情報タイトル
-    dynamic var detailTitle: String?
+    dynamic var title: String?
 
     // 詳細情報明細
-    var messages = List<GogoItemDetailDataEntity>()
+//    var messages = List<GogoItemDetailDataEntity>()
 }
 
 class GogoItemDetailDataEntity: Object {

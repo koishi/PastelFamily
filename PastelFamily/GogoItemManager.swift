@@ -72,32 +72,43 @@ class GogoItemManager: NSObject {
 
                 /// 地上波初
                 if let g_red = gogoitem.xPath("span[@class='g_red']").first?.value {
-//                    gogoItemEntity.isFirstTerrestria = true
+                    gogoItemEntity.isFirstTerrestria = RealmOptional<Bool>(false)
                     print(g_red)
                 }
 
                 if let g_data_block = gogoitem.xPath("div[@class='g_data_block']").first {
 
                     /// テーマ
-                    let g_sp_thema = g_data_block.xPath("span[@class='g_sp_thema']").first
-                    print(g_sp_thema?.value)
+                    if let g_sp_thema = g_data_block.xPath("span[@class='g_sp_thema']").first {
+                        gogoItemEntity.specialTheme = g_sp_thema.value
+                        //                    print(g_sp_thema?.value)
+                    }
 
                     if let titles = g_data_block.xPath("h3").first {
                         
                         /// 邦題
-                        let jp = titles.xPath("span[@class='jp']").first
-                        print(jp?.value)
+                        if let jp = titles.xPath("span[@class='jp']").first {
+                            gogoItemEntity.japaneseTitle = jp.value
+//                            print(jp.value)
+                        }
                         
                         /// 原題
-                        let en = titles.xPath("span[@class='en roboto']").first
-                        print(en?.value)
+                        if let en = titles.xPath("span[@class='en roboto']").first {
+                            gogoItemEntity.englishTitle = en.value
+//                            print(en?.value)
+                        }
+
                     }
 
                     if let otherDataGhide = g_data_block.xPath("div[@class='other_data g_hide']").first {
 
                         /// 制作年・国
-                        let g_country_year = otherDataGhide.xPath("span[@class='g_country_year']").first
-                        print(g_country_year?.value)
+                        if let g_country_year = otherDataGhide.xPath("span[@class='g_country_year']").first {
+                            gogoItemEntity.country = g_country_year.value
+                            gogoItemEntity.year = g_country_year.value
+//                            print(g_country_year?.value)
+                        }
+
                         
                         /// 監督・出演
                         if let otherData = otherDataGhide.xPath("div[@class='g_other_data']").first {
@@ -106,8 +117,15 @@ class GogoItemManager: NSObject {
                             for gt in gt_array {
                                 let gt_childs = gt.xPath("span[@class='g_c']")
                                 if gt_childs.count  >= 2 {
-                                    print(gt_childs[0].xPath("span[@class='data_title']").first?.value)
-                                    print(gt_childs[1].value)
+                                    
+                                    var category = GogoItemDetailEntity()
+                                    category.title = gt_childs[0].xPath("span[@class='data_title']").first?.value
+                                    var person = GogoItemDetailEntity()
+                                    person.title = gt_childs[1].value
+                                    gogoItemEntity.detailEntities.append(category)
+                                    gogoItemEntity.detailEntities.append(person)
+//                                    print(gt_childs[0].xPath("span[@class='data_title']").first?.value)
+//                                    print(gt_childs[1].value)
                                 }
                             }
                         }
