@@ -111,11 +111,12 @@ class GogoItemManager: NSObject {
         if let otherDataGhide = g_data_block.xPath("div[@class='other_data g_hide']").first {
             
             /// 制作年・国
-            if let g_country_year = otherDataGhide.xPath("span[@class='g_country_year']").first {
-                gogoItemEntity.country = g_country_year.value
-                gogoItemEntity.year = g_country_year.value
+            if let g_country_year = otherDataGhide.xPath("span[@class='g_country_year']").first?.value {
+                if isValidateYearCountry(version: g_country_year) {
+                    gogoItemEntity.year = g_country_year.substring(to: g_country_year.index(g_country_year.startIndex, offsetBy: 4))
+                    gogoItemEntity.country = g_country_year.substring(from: g_country_year.index(g_country_year.startIndex, offsetBy: 4))
+                }
             }
-            
             
             /// 監督・出演
             if let otherData = otherDataGhide.xPath("div[@class='g_other_data']").first {
@@ -137,6 +138,25 @@ class GogoItemManager: NSObject {
     }
     return gogoItemEntity
   }
+
+    private func isValidateYearCountry(version :String) -> Bool {
+        var regex: NSRegularExpression
+        let pattern = "\\d{4}"
+        do {
+            regex = try NSRegularExpression(pattern: pattern, options: [])
+            let nsString = version as NSString
+            let matches = regex.matches(in: version, options:[], range:NSMakeRange(0, nsString.length))
+            if matches.count > 0 {
+                return true
+            } else {
+                return false
+            }
+        } catch _ as NSError {
+            // エラー処理
+            regex = NSRegularExpression()
+            return false
+        }
+    }
 
   func scrapingKomaFromEpisode(_ url: String) -> List<Koma> {
     let jiDoc = Ji(htmlURL: URL(string: url)!)
