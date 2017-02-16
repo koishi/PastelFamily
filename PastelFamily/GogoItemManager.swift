@@ -76,8 +76,6 @@ class GogoItemManager: NSObject {
 //            gogoItemEntity.date = formatter.string(from: date)
 //        }
         gogoItemEntity.date = time
-//        gogoItemEntity.url = "http://www.tv-tokyo.co.jp/telecine/oa_afr_load/?trgt=" + time
-        //    http://www.tv-tokyo.co.jp/telecine/oa_afr_load/?trgt=2017021713500000
     }
 
     /// 地上波初
@@ -88,7 +86,6 @@ class GogoItemManager: NSObject {
     
     /// 画像
     if let g_img = gogoitem.xPath("span[@class='g_img']/img").first?.attributes["data-original"] {
-//        gogoItemEntity.imageUrl = "http://www.tv-tokyo.co.jp" + g_img
         gogoItemEntity.imageDataString = g_img
     }
     

@@ -73,21 +73,26 @@ class GogoItemEntity: Object {
     //            <a href="#close" class="close">×</a>
     //            </div>
     //            </div>
+
+    func siteURL() -> String? {
+        guard let date = self.date else {
+            return nil
+        }
+        return "http://www.tv-tokyo.co.jp/telecine/oa_afr_load/?trgt=" + date
+    }
+
+    func imageURL() -> String? {
+        guard let imageDataString = self.imageDataString else {
+            return nil
+        }
+        return "http://www.tv-tokyo.co.jp" + imageDataString
+    }
     
 }
 
 class GogoItemDetailEntity: Object {
-    
     // 詳細情報タイトル
     dynamic var title: String?
-
-    // 詳細情報明細
-//    var messages = List<GogoItemDetailDataEntity>()
 }
 
-class GogoItemDetailDataEntity: Object {
 
-    // 詳細情報
-    dynamic var dara: String?
-
-}
