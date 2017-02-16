@@ -13,9 +13,10 @@ class GogoItemEntity: Object {
 
     // 放送日
     dynamic var date: String?
-    
-    // 地上波初放送フラグ
-    var isFirstTerrestria = RealmOptional<Bool>(false)
+
+    // 地上波初放送ラベル
+//    var isFirstTerrestria = RealmOptional<Bool>(false)
+    dynamic var redText: String?
     
     // 特集テーマ
     dynamic var specialTheme: String?
@@ -33,7 +34,7 @@ class GogoItemEntity: Object {
     dynamic var country: String?
     
     // 画像URL
-    dynamic var imageUrl: String?
+    dynamic var imageDataString: String?
     
     var detailEntities = List<GogoItemDetailEntity>()
 

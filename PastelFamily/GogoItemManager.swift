@@ -76,18 +76,20 @@ class GogoItemManager: NSObject {
 //            gogoItemEntity.date = formatter.string(from: date)
 //        }
         gogoItemEntity.date = time
-        gogoItemEntity.url = "http://www.tv-tokyo.co.jp/telecine/oa_afr_load/?trgt=" + time
+//        gogoItemEntity.url = "http://www.tv-tokyo.co.jp/telecine/oa_afr_load/?trgt=" + time
         //    http://www.tv-tokyo.co.jp/telecine/oa_afr_load/?trgt=2017021713500000
     }
 
     /// 地上波初
     if let g_red = gogoitem.xPath("span[@class='g_red']").first?.value {
-        gogoItemEntity.isFirstTerrestria = RealmOptional<Bool>(true)
+        gogoItemEntity.redText = g_red
+//        gogoItemEntity.isFirstTerrestria = RealmOptional<Bool>(true)
     }
     
     /// 画像
     if let g_img = gogoitem.xPath("span[@class='g_img']/img").first?.attributes["data-original"] {
-        gogoItemEntity.imageUrl = "http://www.tv-tokyo.co.jp" + g_img
+//        gogoItemEntity.imageUrl = "http://www.tv-tokyo.co.jp" + g_img
+        gogoItemEntity.imageDataString = g_img
     }
     
     if let g_data_block = gogoitem.xPath("div[@class='g_data_block']").first {
@@ -130,10 +132,15 @@ class GogoItemManager: NSObject {
                     if gt_childs.count  >= 2 {
                         let category = GogoItemDetailEntity()
                         category.title = gt_childs[0].xPath("span[@class='data_title']").first?.value
-                        let person = GogoItemDetailEntity()
-                        person.title = gt_childs[1].value
                         gogoItemEntity.detailEntities.append(category)
-                        gogoItemEntity.detailEntities.append(person)
+                        
+                        if let persons = gt_childs[1].value?.components(separatedBy: "／") {
+                            for person in persons {
+                                let personEntity = GogoItemDetailEntity()
+                                personEntity.title = person
+                                gogoItemEntity.detailEntities.append(personEntity)
+                            }
+                        }
                     }
                 }
             }
