@@ -9,7 +9,7 @@
 import UIKit
 
 class EpisodeListViewController: UIViewController {
-  @IBOutlet weak private var tableView: UITableView!
+  @IBOutlet weak fileprivate var tableView: UITableView!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -17,14 +17,14 @@ class EpisodeListViewController: UIViewController {
 
     tableView.delegate = self
     tableView.dataSource = self
-    tableView.registerNib(UINib(nibName: EpisodeListTableViewCell.cellIdentifier, bundle: nil), forCellReuseIdentifier: EpisodeListTableViewCell.cellIdentifier)
+    tableView.register(UINib(nibName: EpisodeListTableViewCell.cellIdentifier, bundle: nil), forCellReuseIdentifier: EpisodeListTableViewCell.cellIdentifier)
 
     EpisodeManager.sharedInstance.scrapingEpisodeList({
       self.tableView.reloadData()
     })
   }
 
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     tableView.reloadData()
   }
@@ -35,8 +35,8 @@ class EpisodeListViewController: UIViewController {
 
 extension EpisodeListViewController: UITableViewDelegate {
 
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let vc = self.storyboard?.instantiateViewControllerWithIdentifier(EpisodeDetailViewController.identifier) as! EpisodeDetailViewController
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let vc = self.storyboard?.instantiateViewController(withIdentifier: EpisodeDetailViewController.identifier) as! EpisodeDetailViewController
     vc.htmlString = EpisodeManager.sharedInstance.htmlString(indexPath.row)
     vc.episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
     vc.episodeIndex = indexPath.row
@@ -49,14 +49,14 @@ extension EpisodeListViewController: UITableViewDelegate {
 
 extension EpisodeListViewController: UITableViewDataSource {
 
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(EpisodeListTableViewCell.cellIdentifier) as! EpisodeListTableViewCell
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: EpisodeListTableViewCell.cellIdentifier) as! EpisodeListTableViewCell
     let episode = EpisodeManager.sharedInstance.episodes[indexPath.row]
     cell.episode = episode
     return cell
   }
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return EpisodeManager.sharedInstance.count()
   }
 

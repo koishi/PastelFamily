@@ -13,7 +13,7 @@ class EpisodeManager: NSObject {
   
   static let titleName = "パステル家族"
 
-  private(set) var episodes: Results<EpisodeEntity>
+  fileprivate(set) var episodes: Results<EpisodeEntity>
 
   class var sharedInstance: EpisodeManager {
     struct Static {
@@ -24,18 +24,20 @@ class EpisodeManager: NSObject {
   
   required override init() {
     let realm = try! Realm()
-    episodes = realm.objects(EpisodeEntity)
+    episodes = realm.objects(EpisodeEntity.self)
   }
 
-  func scrapingEpisodeList(completion:() -> Void) {
+  func scrapingEpisodeList(_ completion:@escaping () -> Void) {
 
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+//    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0).async(DispatchQueue.global) {
+//    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0).async(DispatchQueue.global) {
+    DispatchQueue.global(qos: .default).async {
 
       let realm = try! Realm()
       
-      let jiDoc = Ji(htmlURL: NSURL(string: "http://www.comico.jp/detail.nhn?titleNo=32&articleNo=1")!)
+      let jiDoc = Ji(htmlURL: NSURL(string: "http://www.comico.jp/detail.nhn?titleNo=32&articleNo=1")! as URL)
 
       if let bodyNode = jiDoc?.xPath("//body")!.first {
         let contentDivNode = bodyNode.xPath("header[@class='m-article-header']/div[@class='m-article-header__nav-article']/div[@class='m-article-header__nav-article-list']/ul").first
@@ -46,14 +48,14 @@ class EpisodeManager: NSObject {
           var imageUrl = ""
 
           // すでに存在するURLならスキップする
-          let result = realm.objects(EpisodeEntity).filter("url = '\(url!)'")
+          let result = realm.objects(EpisodeEntity.self).filter("url = '\(url!)'")
           if result.count != 0 {
             continue
           }
 
           for childNode in (childNode.firstChildWithName("a")?.childrenWithName("p"))! {
             if let plainTitle = childNode.firstChildWithName("img")?.attributes["alt"] {
-              title = plainTitle.stringByReplacingOccurrencesOfString(EpisodeManager.titleName, withString: "")
+                title = plainTitle.replacingOccurrences(of: EpisodeManager.titleName, with: "")
             }
             if let imgSrc = childNode.firstChildWithName("img")?.attributes["src"] {
               imageUrl = imgSrc
@@ -68,20 +70,20 @@ class EpisodeManager: NSObject {
             realm.add(episode)
           }
 
-          dispatch_async(dispatch_get_main_queue()) {
+          DispatchQueue.main.async {
             completion()
           }
         }
       }
-      dispatch_async(dispatch_get_main_queue()) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+      DispatchQueue.main.async {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         completion()
       }
     }
   }
 
-  private func scrapingKomaFromEpisode(url: String) -> List<Koma> {
-    let jiDoc = Ji(htmlURL: NSURL(string: url)!)
+  fileprivate func scrapingKomaFromEpisode(_ url: String) -> List<Koma> {
+    let jiDoc = Ji(htmlURL: NSURL(string: url)! as URL)
     let bodyNode = jiDoc?.xPath("//body")!.first!
     let contentDivNode = bodyNode!.xPath("div[@class='m-comico-body o-section-bg-01 o-pb50']/div[@class='m-comico-body__inner']/div[@class='m-section-detail o-mt-1']/section[@class='m-section-detail__body']").first
 
@@ -96,7 +98,7 @@ class EpisodeManager: NSObject {
     return episodes.count
   }
 
-  func htmlString(index: Int) -> String {
+  func htmlString(_ index: Int) -> String {
     let episode = episodes[index]
     var html = "<html lang=\"ja\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width\"><title>\(episode.title!)</title>"
     for komaUrl in episode.komaUrl {
@@ -106,14 +108,14 @@ class EpisodeManager: NSObject {
     return html
   }
 
-  func nextEpisodeHtml(index: Int) -> String? {
+  func nextEpisodeHtml(_ index: Int) -> String? {
     if availableEpisode(index + 1) {
       return htmlString(index + 1)
     }
     return nil
   }
 
-  func availableEpisode(index: Int) -> Bool {
+  func availableEpisode(_ index: Int) -> Bool {
     return count() >= index + 1
   }
   
